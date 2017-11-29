@@ -1,0 +1,126 @@
+
+body, html {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	font-family: 'Josefin Slab', serif; /* setting all text to same font family */
+	background: #73956F;
+}
+
+header {
+	background-color: #95D7AE;
+	min-height: 75px;
+	height: 10%;
+	width: 100%;
+	float: right;
+}
+
+header #headerTitle {
+	transition: 0.2s;
+	margin-left: 10px;
+}
+
+#navButton {
+	position: fixed;
+	padding: 0 5 0 5;
+	top: 50%;
+	border: 2px solid white;
+	border-radius: 50px;
+	background-color: #454851;
+	color: white;
+	font-size: 40;	
+	transition: 0.2s;
+}
+
+#navButton:hover {
+	background-color: #73956F;
+	transform: rotate(-180deg);
+	transition: 0.2s;
+}
+
+#sideBar {
+	
+	background-color: #7BAE7F;
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.3s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+#sideBar .closebtn {
+	line-height: 33px; /* to center the X */
+	text-align: center;
+	height: 40px;
+	width: 40px;
+    position: absolute;
+    top: 15;
+    right: 25px;
+    font-size: 36px;
+	transition: 0.2s;
+	text-decoration: none;
+	color: #454851;
+	border: 1px solid #454851;
+	border-radius: 50px;
+}
+
+#sideBar .closebtn:hover {
+	transform: rotate(180deg);
+	transition: 0.2s;
+	border: 1px solid #FCEDED;
+	color: #FCEDED;
+}
+
+#sideBar h1, #sideBar .projectLink p, #sideBar .projectLink{
+    text-decoration: none;
+    font-size: 25px;
+    transition: 0.3s;
+	margin: 0 15 0 15;
+	
+}
+
+#sideBar #sideBarText {
+	display: none;
+	transition: 0.2s;
+}
+
+#sideBar h1 {
+	margin: 10;
+}
+
+.projectLink p{
+	padding: 2;
+	color: #FCEDED;
+}
+
+.projectLink p:hover {
+	
+	padding-left: 50px;
+	color: #454851;
+	background-color: #FCEDED;
+}
+
+#main {
+	background-color: #FCEDED;
+	height: 100%;
+	
+	width: 100%;
+}
+
+footer {
+	
+	z-index: 1;
+	background-color: #454851;
+	height: 10%;
+	width: 100%;
+	float: right;
+	
+}
+
+extracolor {
+	background-color: #73956F;
+}

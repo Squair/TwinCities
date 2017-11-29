@@ -1,0 +1,54 @@
+<!DOCTYPE>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="stylesheet.css">
+<title>Squair Site</title>
+</head>
+<body>
+<script>
+	function openNav(){
+		var sideBar = document.getElementById("sideBar"); //Select the side bar from its id.
+		sideBar.style.width = "250px"; //Will give the illusion that it slides out with a css transition.
+		document.getElementById("headerTitle").style.marginLeft = "260px";
+		document.getElementById("sideBarText").style.display = "block";
+		document.getElementById("main").style.background = "rgba(252, 237, 237, 0.4)";
+	}
+	
+	function closeNav(){
+		var sideBar = document.getElementById("sideBar");
+		sideBar.style.width = "0";
+		document.getElementById("headerTitle").style.marginLeft = "10px";
+		document.getElementById("sideBarText").style.display = "none";
+		document.getElementById("main").style.background = "rgba(252, 237, 237, 1)";
+	}
+</script>
+<button id="navButton" onclick="openNav()">&rArr;</button>
+<nav id="sideBar">
+	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+	<div id="sideBarText">
+	<h1>My Work</h1>
+	
+	<a href="#" class="projectLink"><p>Minesweeper</p></a>
+	<a href="#" class="projectLink"><p>Twinned Cities</p></a>
+	
+	<h1>About me</h1>
+	<a href="#" class="projectLink"><p>Hobbies</p></a>
+	<a href="#" class="projectLink"><p>Education</p></a>
+	<a href="#" class="projectLink"><p>Goals</p></a>
+	<div>
+</nav> 
+	
+<header>
+	<h1 id="headerTitle">George Squair</h1>
+</header>        
+
+<main id="main">
+	
+</main>
+    
+<footer>
+	
+</footer>
+</body>
+</html>
