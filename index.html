@@ -2,6 +2,8 @@
 <html>
 <head>
 <link href="https://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet">
+<script src='https://code.jquery.com/jquery-3.1.0.min.js'></script>
+
 <link type="text/css" rel="stylesheet" href="stylesheet.css">
 <title>Squair Site</title>
 </head>
@@ -12,7 +14,9 @@
 		sideBar.style.width = "250px"; //Will give the illusion that it slides out with a css transition.
 		document.getElementById("headerTitle").style.marginLeft = "260px"; //Move title with side bar
 		document.getElementById("sideBarText").style.display = "block"; 
-		document.getElementById("main").style.background = "rgba(252, 237, 237, 0.4)"; //Change opacity of main content to get focus onto side bar when active.
+		document.getElementById("main").style.background = "rgba(252, 237, 237, 0.8)";
+		document.getElementById("contentGrid").style.background = "rgba(115, 149, 111, 0.8)";
+		//Change opacity of main content to get focus onto side bar when active.
 	}
 	
 	function closeNav(){
@@ -22,30 +26,75 @@
 		document.getElementById("headerTitle").style.marginLeft = "10px";
 		document.getElementById("sideBarText").style.display = "none"; //So that the text doesnt wrap as container closes.
 		document.getElementById("main").style.background = "rgba(252, 237, 237, 1)"; //Remove opacity.
+		document.getElementById("contentGrid").style.background = "rgba(115, 149, 111, 1)";
 	}
+	var title = "Title";
+	$(document).ready(function(){
+			$(".projectLink").click(function(){ //When nav bar links are clicked.
+				if($("#contentTitle").css('display') == 'none'){ //If no titles selected, fade in anyway otherwise it looks sharp.
+					$("#contentTitle").fadeIn(100);	
+					$("#contentInfo").fadeIn(100);
+				}
+				//When clicking new titles, toggle it off then fade the new one in.
+					$("#contentTitle").toggle();
+					$("#contentInfo").toggle();
+					$("#contentTitle").fadeIn(500);	
+					$("#contentInfo").fadeIn(500);
+				var newTitle = $(this).text(); //Get the text.
+				console.log(newTitle);
+
+				$("#contentTitle").text(newTitle); //Set text in content panel.
+				switch ($(this).text()){
+					case "Minesweeper":
+						$("#contentInfo").text("A small, slightly uncomplete version of minesweeper.");
+						break;
+					case "Twinned Cities":
+						$("#contentInfo").text("Group project assignment for data, schemes and application due 2018.");
+						break;
+					case "Hobbies":
+						$("#contentInfo").text("Cycling, skiing, cooking, lots of things really.");
+						break;
+					case "Education":
+						$("#contentInfo").text("GCSE's done, College done, currently at uni.");
+						break;
+					case "Goals":
+						$("#contentInfo").text("Become a good web developer!");
+						break;
+					
+				}
+		});
+	});
+	
+
+	
+	
 </script>
 <button id="navButton" onclick="openNav()">&rArr;</button> <!-- Calls openNav when side button clicked. --> 
 <nav id="sideBar">
 	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 	<div id="sideBarText">
 	<h1>My Work</h1>
-	
-	<a href="#" class="projectLink"><p>Minesweeper</p></a>
-	<a href="#" class="projectLink"><p>Twinned Cities</p></a>
-	
+		<a href="#" class="projectLink"><p>Minesweeper</p></a>
+		<a href="#" class="projectLink"><p>Twinned Cities</p></a>
+
 	<h1>About me</h1>
-	<a href="#" class="projectLink"><p>Hobbies</p></a>
-	<a href="#" class="projectLink"><p>Education</p></a>
-	<a href="#" class="projectLink"><p>Goals</p></a>
+		<a href="#" class="projectLink"><p>Hobbies</p></a>
+		<a href="#" class="projectLink"><p>Education</p></a>
+		<a href="#" class="projectLink"><p>Goals</p></a>
+	<h1>Favourite Recipes</h1>
 	<div>
 </nav> 
-	
+				
 <header>
 	<h1 id="headerTitle">George Squair</h1>
 </header>        
 
 <main id="main">
-	
+	<div id="contentGrid">
+		<h1 id="contentTitle"></h1>
+		<p id="contentInfo"> </p>
+		<img id="contentImg">
+	</div>
 </main>
     
 <footer>

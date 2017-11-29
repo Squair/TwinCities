@@ -15,6 +15,7 @@ header {
 	width: 100%;
 	float: right;
 	box-shadow: 0px 5px 10px #888888;
+	z-index: 3;
 }
 
 header #headerTitle {
@@ -46,7 +47,7 @@ header #headerTitle {
     height: 100%; /* 100% Full-height */
     width: 0; /* 0 this gets changed in JavaScript */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Stay on top */
+    z-index: 4; /* Stay on top */
     top: 0; /* Stay at the top */
     left: 0;
     overflow-x: hidden; /* Disable horizontal scroll */
@@ -109,9 +110,26 @@ header #headerTitle {
 #main {
 	background-color: #FCEDED;
 	height: 100%;
-	
+	display: flex;
 	width: 100%;
 	z-index: 1;
+}
+
+#contentGrid {
+	text-align: center;
+	z-index: 2;
+	width: 80%;
+	max-width: 600px;
+	height: 70%;
+	max-height: 650px;
+	background-color: #73956F;
+	margin: auto;
+	vertical-align: middle;
+	box-shadow: 10px 5px 10px #888888;
+}
+
+#contentGrid #contentTitle, #contentGrid #contentInfo {
+	display: none;
 }
 
 footer {
