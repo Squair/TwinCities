@@ -31,10 +31,6 @@
 	var title = "Title";
 	$(document).ready(function(){
 			$(".projectLink").click(function(){ //When nav bar links are clicked.
-				if($("#contentTitle").css('display') == 'none'){ //If no titles selected, fade in anyway otherwise it looks sharp.
-					$("#contentTitle").fadeIn(100);	
-					$("#contentInfo").fadeIn(100);
-				}
 				//When clicking new titles, toggle it off then fade the new one in.
 					$("#contentTitle").toggle();
 					$("#contentInfo").toggle();
@@ -91,8 +87,8 @@
 
 <main id="main">
 	<div id="contentGrid">
-		<h1 id="contentTitle"></h1>
-		<p id="contentInfo"> </p>
+		<h1 id="contentTitle">Choose an option in the left panel...</h1>
+		<p id="contentInfo">...And I'll do the rest</p>
 		<img id="contentImg">
 	</div>
 </main>
