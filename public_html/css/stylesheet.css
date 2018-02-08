@@ -23,7 +23,7 @@ header #headerTitle {
 	margin-left: 10px;
 }
 
-#navButton {
+.navButton {
 	position: fixed;
 	padding: 0px 5px 0px 5px;
 	top: 50%;
@@ -34,14 +34,28 @@ header #headerTitle {
 	font-size: 40px;	
 	transition: 0.2s;
 }
-
-#navButton:hover {
-	background-color: #73956F;
+#leftNavButton{
+	left: 0;
+}
+#rightNavButton{
+	right: 0;
 	transform: rotate(-180deg);
-	transition: 0.2s;
 }
 
-#sideBar {
+.navButton:hover {
+	background-color: #73956F;
+	transition: 0.2s;
+}
+#rightNavButton:hover{
+	transform: rotate(0deg);
+	
+}
+#leftNavButton:hover{
+	transform: rotate(-180deg);
+	
+}
+
+.sideBar{
 	box-shadow: 5px 5px 10px #888888;
 	background-color: #7BAE7F;
     height: 100%; /* 100% Full-height */
@@ -49,13 +63,20 @@ header #headerTitle {
     position: fixed; /* Stay in place */
     z-index: 4; /* Stay on top */
     top: 0; /* Stay at the top */
-    left: 0;
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.3s; /* 0.3 second transition effect to slide in the sideBar */
 }
 
-#sideBar .closebtn {
+#leftSideBar{
+	left: 0;
+}
+
+#rightSideBar{
+	right: 0;
+}
+
+.sideBar .closebtn {
 	line-height: 33px; /* to center the X */
 	text-align: center;
 	height: 40px;
@@ -71,14 +92,14 @@ header #headerTitle {
 	border-radius: 50px;
 }
 
-#sideBar .closebtn:hover {
+.sideBar .closebtn:hover {
 	transform: rotate(180deg);
 	transition: 0.2s;
 	border: 1px solid #FCEDED;
 	color: #FCEDED;
 }
 
-#sideBar h1, #sideBar .projectLink p, #sideBar .projectLink{
+.sideBar h1, .sideBar .projectLink p, .sideBar .projectLink{
     text-decoration: none;
     font-size: 25px;
     transition: 0.3s;
@@ -87,12 +108,12 @@ header #headerTitle {
 	overflow:hidden;
 }
 
-#sideBar #sideBarText {
+.sideBar .sideBarText {
 	display: none;
 	transition: 0.2s;
 }
 
-#sideBar h1 {
+.sideBar h1 {
 	margin: 10px;
 }
 

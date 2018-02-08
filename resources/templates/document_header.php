@@ -19,8 +19,9 @@
 
 				$("#contentTitle").text(newTitle); //Set text in content panel.
 				switch ($(this).text()){
-					case "Minesweeper":
-						$("#contentInfo").text("A small, slightly uncomplete version of minesweeper.");
+					case "Recent Tweets":
+						
+						$("#contentInfo").text(<?php require_once("getTweets.php")?>);
 						break;
 					case "Twinned Cities":
 						$("#contentInfo").text("Group project assignment for data, schemes and application due 2018.");

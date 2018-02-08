@@ -1,9 +1,9 @@
-<button class="navButton" id="leftNavButton" onclick="openLeftNav()">&rArr;</button> <!-- Calls openNav when side button clicked. --> 
-<nav class="sideBar" id="leftSideBar">
-	<a href="javascript:void(0)" class="closebtn" onclick="closeLeftNav()">&times;</a>
-	<div class="sideBarText" id="leftSideBarText">
+<button class="navButton" id="rightNavButton" onclick="openRightNav()">&rArr;</button> <!-- Calls openNav when side button clicked. --> 
+<nav class="sideBar" id="rightSideBar">
+	<a href="javascript:void(0)" class="closebtn" onclick="closeRightNav()">&times;</a>
+	<div class="sideBarText" id="rightSideBarText">
 	<h1>My Work</h1>
-		<a href="#" class="projectLink"><p>Recent Tweets</p></a>
+		<a href="#" class="projectLink"><p>Minesweeper</p></a>
 		<a href="#" class="projectLink"><p>Twinned Cities</p></a>
 
 	<h1>About me</h1>
