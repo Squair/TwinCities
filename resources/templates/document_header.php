@@ -21,7 +21,7 @@
 				switch ($(this).text()){
 					case "Recent Tweets":
 						
-						$("#contentInfo").text(<?php require_once("getTweets.php")?>);
+						$("#contentInfo").text("Recent tweets");
 						break;
 					case "Twinned Cities":
 						$("#contentInfo").text("Group project assignment for data, schemes and application due 2018.");
