@@ -2,17 +2,14 @@
 <nav class="sideBar" id="rightSideBar">
 	<a href="javascript:void(0)" class="closebtn" onclick="closeRightNav()">&times;</a>
 	<div class="sideBarText" id="rightSideBarText">
-	<h1>My Work</h1>
-		<a href="#" class="projectLink"><p>Minesweeper</p></a>
-		<a href="#" class="projectLink"><p>Twinned Cities</p></a>
+	<h1>City Information</h1>
+		<a href="#" class="projectLink"><p>Map</p></a>
+		<a href="#" class="projectLink"><p>Recent tweets</p></a>
+		<a href="#" class="projectLink"><p>Photos</p></a>
+		<a href="#" class="projectLink"><p>Weather</p></a>
+	<h1>Places of intrest</h1>
 
-	<h1>About me</h1>
-		<a href="#" class="projectLink"><p>Hobbies</p></a>
-		<a href="#" class="projectLink"><p>Education</p></a>
-		<a href="#" class="projectLink"><p>Goals</p></a>
-	<h1>Favourite Recipes</h1>
-		<a href="#" class="projectLink"><p>Chilli beef nachos</p></a>
-	<h1>Other</h1>
-		<a href="#" class="projectLink"><p>Contact me</p></a>
+		<a href="#" class="projectLink"><p>Pull all places here.</p></a>
+
 	<div>
-</nav> 
+</nav>

@@ -3,13 +3,13 @@
 	<a href="javascript:void(0)" class="closebtn" onclick="closeLeftNav()">&times;</a>
 	<div class="sideBarText" id="leftSideBarText">
 	<h1>City Information</h1>
-		<a href="#" class="projectLink"><p>Recent Tweets</p></a>
-		<a href="#" class="projectLink"><p>Maps</p></a>
-		<a href="#" class="projectLink"><p>Flikr</p></a>
+		<a href="#" class="projectLink"><p>Map</p></a>
+		<a href="#" class="projectLink"><p>Recent tweets</p></a>
+		<a href="#" class="projectLink"><p>Photos</p></a>
 		<a href="#" class="projectLink"><p>Weather</p></a>
 	<h1>Places of intrest</h1>
 
-		<a href="#" class="projectLink"><p>Football stadiums</p></a>
+		<a href="#" class="projectLink"><p>Pull all places here.</p></a>
 
 	<div>
 </nav> 

@@ -3,37 +3,39 @@
 <head>
 <link href="https://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet">
 <script src='https://code.jquery.com/jquery-3.1.0.min.js'></script>
-
 <link type="text/css" rel="stylesheet" href="css/stylesheet.css">
-<title>Squair Site</title>
+<title>DSA Twinned Cities</title>
 <script>
 	$(document).ready(function(){
+
 			$(".projectLink").click(function(){ //When nav bar links are clicked.
 				//When clicking new titles, toggle it off then fade the new one in.
 					$("#contentTitle").toggle();
 					$("#contentInfo").toggle();
 					$("#contentTitle").fadeIn(500);	
 					$("#contentInfo").fadeIn(500);
+					$("#map").hide();
+					
 				var newTitle = $(this).text(); //Get the text.
 				console.log(newTitle);
 
 				$("#contentTitle").text(newTitle); //Set text in content panel.
 				switch ($(this).text()){
-					case "Recent Tweets":
-						
-						$("#contentInfo").text("Recent tweets");
+					case "Recent tweets":
+						$("#contentInfo").text("Pull recent tweets for this city");
 						break;
-					case "Twinned Cities":
-						$("#contentInfo").text("Group project assignment for data, schemes and application due 2018.");
+					case "Map":
+						$("#contentInfo").text("Here is a map.");
+						$("#map").show();
 						break;
-					case "Hobbies":
-						$("#contentInfo").text("Cycling, skiing, cooking, lots of things really.");
+					case "Photos":
+						$("#contentInfo").text("Pull all photos with photo api here.");
 						break;
-					case "Education":
-						$("#contentInfo").text("GCSE's done, College done, currently at uni.");
+					case "Weather":
+						$("#contentInfo").text("Pull weather data here.");
 						break;
-					case "Goals":
-						$("#contentInfo").text("Become a good web developer!");
+					case "Places of intrest":
+						$("#contentInfo").text("Pull places here.");
 						break;
 					
 				}

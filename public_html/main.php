@@ -1,4 +1,20 @@
 <?php require_once("../resources/templates/document_header.php")?>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhHPFmJmx7Irz6VwjeZYqjjZjS0tfo3mc&callback=initMap"></script>
+
+<script>
+			  function initMap() {
+				var uluru = {lat: 50, lng: 50};
+				var map = new google.maps.Map(document.getElementById('map'), {
+				  zoom: 4,
+				  center: uluru
+				});
+				var marker = new google.maps.Marker({
+				  position: uluru,
+				  map: map
+				});
+			  }
+</script>
 <script>
 	function openLeftNav(){
 		var sideBar = document.getElementById("leftSideBar"); //Select the side bar from its id.
@@ -40,8 +56,6 @@
 		document.getElementById("contentGrid").style.background = "rgba(115, 149, 111, 1)";
 	}
 	
-
-	
 </script>
 
 
@@ -61,8 +75,9 @@
 
 <main id="main">
 	<div id="contentGrid">
-		<h1 id="contentTitle">Choose an option in the left panel...</h1>
-		<p id="contentInfo">...And I'll do the rest</p>
+		<h1 id="contentTitle">Map</h1>
+		<p id="contentInfo">Here is a map.</p>
+		<div id="map" style="width: 100%; height: 400px;"></div>
 		<img id="contentImg">
 	</div>
 </main>
