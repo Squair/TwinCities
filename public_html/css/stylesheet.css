@@ -168,6 +168,14 @@ extracolor {
 	background-color: #73956F;
 }
 
+iframe {
+            
+    height: 100%;
+    width: 50%;
+    float: left;
+}
+
+
 ::-webkit-scrollbar { 
     display: none; 
 }

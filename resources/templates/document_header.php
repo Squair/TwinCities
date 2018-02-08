@@ -26,7 +26,7 @@
 						break;
 					case "Map":
 						$("#contentInfo").text("Here is a map.");
-						$("#map").show();
+						$("#map").fadeIn(500);
 						break;
 					case "Photos":
 						$("#contentInfo").text("Pull all photos with photo api here.");
