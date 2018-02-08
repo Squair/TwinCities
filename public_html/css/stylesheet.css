@@ -21,6 +21,8 @@ header {
 header #headerTitle {
 	transition: 0.2s;
 	margin-left: 10px;
+    margin-right: 10px;
+    
 }
 
 .navButton {
