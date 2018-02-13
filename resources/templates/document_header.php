@@ -7,7 +7,7 @@
 <title>DSA Twinned Cities</title>
 <script>
 	$(document).ready(function(){
-			$("#tweetBox").hide();
+			$("#tweetBox").hide(); //Hide by default.
 			$(".projectLink").click(function(){ //When nav bar links are clicked.
 				//When clicking new titles, toggle it off then fade the new one in.
 					$("#contentTitle").toggle();
@@ -15,6 +15,7 @@
 					$("#contentTitle").fadeIn(500);	
 					$("#contentInfo").fadeIn(500);
 					$("#map").hide();
+					$("#tweetBox").hide();
 					
 					
 				var newTitle = $(this).text(); //Get the text.
