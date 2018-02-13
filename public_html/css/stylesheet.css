@@ -25,6 +25,13 @@ header #headerTitle {
     
 }
 
+.tweet {
+	margin: 10px;
+	text-align: left;
+	border: 1px solid black;
+	
+}
+
 .navButton {
 	position: fixed;
 	padding: 0px 5px 0px 5px;
@@ -143,8 +150,8 @@ header #headerTitle {
 	text-align: center;
 	z-index: 2;
 	width: 75%;
-	height: 70%;
-	max-height: 650px;
+	height: 75%;
+	
 	background-color: #73956F;
 	margin:  auto;
 	vertical-align: middle;

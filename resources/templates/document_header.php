@@ -7,7 +7,7 @@
 <title>DSA Twinned Cities</title>
 <script>
 	$(document).ready(function(){
-
+			$("#tweetBox").hide();
 			$(".projectLink").click(function(){ //When nav bar links are clicked.
 				//When clicking new titles, toggle it off then fade the new one in.
 					$("#contentTitle").toggle();
@@ -16,13 +16,15 @@
 					$("#contentInfo").fadeIn(500);
 					$("#map").hide();
 					
+					
 				var newTitle = $(this).text(); //Get the text.
 				console.log(newTitle);
 
 				$("#contentTitle").text(newTitle); //Set text in content panel.
 				switch ($(this).text()){
 					case "Recent tweets":
-						$("#contentInfo").text("Pull recent tweets for this city");
+						$("contentInfo").text("Here are the most recent tweets.")
+						$("#tweetBox").show();
 						break;
 					case "Map":
 						$("#contentInfo").text("Here is a map.");

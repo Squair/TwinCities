@@ -21,6 +21,9 @@
 		<h1 id="contentTitle">Map</h1> <!-- On display on page, load map first so that it renders correctly. -->
 		<p id="contentInfo">Here is a map.</p>
 		<div id="map" style="width: 100%; height: 400px;"></div>
+		<div id="tweetBox" style="width: 100%; height: 80%; overflow:scroll">
+		<?php require_once("../resources/templates/getTweets.php"); ?>
+		</div>
 		<img id="contentImg">
 	</div>
 </main>
