@@ -1,6 +1,13 @@
+<?php
+
+$city = $_GET['city'];
+
+$query = "SELECT * FROM city WHERE name='$city'";
+$result = $connection->query($query);
+$row = $result->fetch(PDO::FETCH_ASSOC);
 
 
-        <?php
+
         //Based on code by James Mallison, see https://github.com/J7mbo/twitter-api-php
         ini_set('display_errors', 1);
         require_once('TwitterAPIExchange.php');
@@ -18,7 +25,7 @@
         /** Perform a GET request and echo the response **/
         /** Note: Set the GET field BEFORE calling buildOauth(); **/
         $url = 'https://api.twitter.com/1.1/search/tweets.json';
-        $getfield = '?q=&geocode=51.502,-2.545,10km';
+        $getfield = '?q=&geocode=' . $row['longitude'] . ',' . $row['latitude'] . ',' . $row['area'] . 'km&count=50';
         $requestMethod = 'GET';
         $twitter = new TwitterAPIExchange($settings);
         $data=$twitter->setGetfield($getfield)

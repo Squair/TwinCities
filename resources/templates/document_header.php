@@ -24,11 +24,11 @@
 				$("#contentTitle").text(newTitle); //Set text in content panel.
 				switch ($(this).text()){
 					case "Recent tweets":
-						$("contentInfo").text("Here are the most recent tweets.")
-						$("#tweetBox").show();
+						$("#contentInfo").text("Here are the most recent 50 tweets from <?php echo $_GET['city'];?>" )
+						$("#tweetBox").fadeIn(500);
 						break;
 					case "Map":
-						$("#contentInfo").text("Here is a map.");
+						$("#contentInfo").text("Here is a map of <?php echo $_GET['city'];?>")
 						$("#map").fadeIn(500);
 						break;
 					case "Photos":
