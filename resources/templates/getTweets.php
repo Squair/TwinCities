@@ -1,11 +1,12 @@
 <?php
-
+if (isset($connection)){
 $city = $_GET['city'];
-
 $query = "SELECT * FROM city WHERE name='$city'";
 $result = $connection->query($query);
 $row = $result->fetch(PDO::FETCH_ASSOC);
-
+} else {
+	die("Could not connect to db.");
+}
 
 
         //Based on code by James Mallison, see https://github.com/J7mbo/twitter-api-php

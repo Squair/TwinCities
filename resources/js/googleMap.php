@@ -1,10 +1,13 @@
 <?php
-$city = $_GET['city'];
 
+if (isset($connection)){
+$city = $_GET['city'];
 $query = "SELECT * FROM city WHERE name='$city'";
 $result = $connection->query($query);
 $row = $result->fetch(PDO::FETCH_ASSOC);
-
+} else {
+	die("Could not connect to db.");
+}
 ?>
 <script>
 function initMap() {
