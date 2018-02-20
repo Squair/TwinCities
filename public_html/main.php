@@ -26,9 +26,19 @@
 		<div id="tweetBox" style="width: 100%; height: 80%; overflow:scroll">
 		<?php require_once("../resources/templates/getTweets.php"); ?>
 		</div>
+        
+        <!-- Show weather widget -->
+		<div id="weather" style="width: 200%; height: 100%; overflow:scroll;">
+            <a class="weatherwidget-io" href="https://forecast7.com/en/52d49n1d89/chicago/" data-label_1="BIRMINGHAM" data-label_2="WEATHER" data-theme="original" >BIRMINGHAM WEATHER</a>
+		</div>
 		
 		<img id="contentImg">
 	</div>
 </main>
+
+<!-- Need to move this somewhere -->
+<script>
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+</script>
 
 <?php require_once("../resources/templates/footer.php") ?>

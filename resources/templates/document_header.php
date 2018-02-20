@@ -7,6 +7,7 @@
 <title>DSA Twinned Cities</title>
 <script>
 	$(document).ready(function(){
+            $("#weather").hide(); //Hide by default
 			$("#tweetBox").hide(); //Hide by default.
 			$(".projectLink").click(function(){ //When nav bar links are clicked.
 				//When clicking new titles, toggle it off then fade the new one in.
@@ -16,7 +17,7 @@
 					$("#contentInfo").fadeIn(500);
 					$("#map").hide();
 					$("#tweetBox").hide();
-					
+					$("#weather").hide()
 					
 				var newTitle = $(this).text(); //Get the text.
 				console.log(newTitle);
@@ -35,6 +36,7 @@
 						$("#contentInfo").text("Pull all photos with photo api here.");
 						break;
 					case "Weather":
+                        $("#weather").fadeIn(500);
 						$("#contentInfo").text("Pull weather data here.");
 						break;
 					case "Places of intrest":
