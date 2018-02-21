@@ -9,7 +9,12 @@
 		<a href="#" class="projectLink"><p>Weather</p></a>
 	<h1>Places of intrest</h1>
 
-		<a href="#" class="projectLink"><p>Pull all places here.</p></a>
+		<a href="#" class="projectLink"><p>Restaurants</p></a>
+		<a href="#" class="projectLink"><p>Night life</p></a>
+		<a href="#" class="projectLink"><p>Cafes</p></a>
+		<a href="#" class="projectLink"><p>Churchs</p></a>
+		<a href="#" class="projectLink"><p>Libraries</p></a>
+
 
 	<div>
-</nav>
+</nav> 

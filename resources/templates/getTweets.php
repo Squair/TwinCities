@@ -12,9 +12,7 @@ $row = $result->fetch(PDO::FETCH_ASSOC);
         //Based on code by James Mallison, see https://github.com/J7mbo/twitter-api-php
         ini_set('display_errors', 1);
         require_once('TwitterAPIExchange.php');
-        
-        header('Content-Type: text/html; charset="UTF-8"');
-        
+                
         /** Set access tokens here - see: https://dev.twitter.com/apps/ **/
         $settings = array(
             'oauth_access_token' => "894090696-Hp9REyDObGsLWUdcf5wcdUo1AsAf3BqiHRHo2ATO",

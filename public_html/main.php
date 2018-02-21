@@ -1,6 +1,6 @@
 <?php require_once("../resources/templates/document_header.php")?>
 <?php require_once("../resources/templates/db_connection.php"); ?>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhHPFmJmx7Irz6VwjeZYqjjZjS0tfo3mc&callback=initMap"></script> <!-- Google maps -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhHPFmJmx7Irz6VwjeZYqjjZjS0tfo3mc&libraries=places"></script> <!-- Google maps -->
 <?php require_once("../resources/js/googleMap.php"); ?> <!-- Google maps function call -->
 <script src="../resources/js/sideBarControl.js"></script> <!-- Controlls the side bars scrolling out. -->
 
@@ -29,7 +29,7 @@
         
         <!-- Show weather widget -->
 		<div id="weather" style="width: 200%; height: 100%; overflow:scroll;">
-            <a class="weatherwidget-io" href="https://forecast7.com/en/52d49n1d89/chicago/" data-label_1="BIRMINGHAM" data-label_2="WEATHER" data-theme="original" >BIRMINGHAM WEATHER</a>
+            <a class="weatherwidget-io" href="https://forecast7.com/en/52d49n1d89/birmingham/" data-label_1="BIRMINGHAM" data-label_2="WEATHER" data-theme="original" >BIRMINGHAM WEATHER</a>
 		</div>
 		
 		<img id="contentImg">
@@ -38,7 +38,6 @@
 
 <!-- Need to move this somewhere -->
 <script>
+	initMap();
 !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
 </script>
-
-<?php require_once("../resources/templates/footer.php") ?>
