@@ -24,7 +24,7 @@ $row = $result->fetch(PDO::FETCH_ASSOC);
         /** Perform a GET request and echo the response **/
         /** Note: Set the GET field BEFORE calling buildOauth(); **/
         $url = 'https://api.twitter.com/1.1/search/tweets.json';
-        $getfield = '?q=&geocode=' . $row['longitude'] . ',' . $row['latitude'] . ',' . $row['area'] . 'km&count=50';
+        $getfield = '?q=' . $row['name'] . '&geocode=' . $row['longitude'] . ',' . $row['latitude'] . ',' . $row['area'] . 'km&count=50&tweet_mode=extended';
         $requestMethod = 'GET';
         $twitter = new TwitterAPIExchange($settings);
         $data=$twitter->setGetfield($getfield)
@@ -48,7 +48,7 @@ $row = $result->fetch(PDO::FETCH_ASSOC);
 			echo("<img src='" . $status["user"]["profile_image_url"] . "'>");
 			echo("<h3>" . $status["user"]['screen_name'] . "</h3>");
 			
-        	echo("<p>" . $status["text"] . "</p>");
+        	echo("<p>" . $status["full_text"] . "</p>");
 			echo("</div>");
         }
         

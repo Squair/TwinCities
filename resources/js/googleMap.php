@@ -79,9 +79,27 @@ function createMarker(place) {
 	  position: place.geometry.location
 });
 
-google.maps.event.addListener(marker, 'click', function() {
-  infowindow.setContent(place.name);
+var contentString = '<div id="content">'+
+	'<div id="siteNotice">'+
+	'</div>'+
+	'<p id="firstHeading" class="firstHeading">' + place.name + '</p>'+
+	'<div id="bodyContent">'+
+	'<img style="width: 50px; height: 50px;" src="' + place.icon + '">' +
+	'<p>' + place.vicinity + '</p>' +
+	'</div>'+
+	'</div>';
+	
+google.maps.event.addListener(marker, 'mouseover', function() {
+  infowindow.setContent(contentString);
   infowindow.open(map, this);
+});
+
+google.maps.event.addListener(marker, 'mouseout', function() {
+  infowindow.close();
+});
+	
+google.maps.event.addListener(marker, 'click', function() {
+  window.open('https://maps.googleapis.com/maps/api/place/details/json?placeid=' + place.place_id +'&key=AIzaSyBhHPFmJmx7Irz6VwjeZYqjjZjS0tfo3mc');
 });
 }
 </script>
