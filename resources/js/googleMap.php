@@ -8,6 +8,7 @@ $row = $result->fetch(PDO::FETCH_ASSOC);
 } else {
 	die("Could not connect to db.");
 }
+
 ?>
 <script>
 function initMap() {
@@ -89,6 +90,36 @@ var contentString = '<div id="content">'+
 	'</div>'+
 	'</div>';
 	
+function createRequestObject(){
+	var tmpXmlHttpObject;
+	
+	if(window.XMLHttpRequest){
+		//Moz, saf
+		tmpXmlHttpObject = new XMLHttpRequest();
+	} else if (window.ActiveXObject){
+		//IE
+		tmpXmlHttpObject = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	return tmpXmlHttpObject;
+}	
+
+var http = createRequestObject();
+
+function makeGetRequestObject(){
+	http.open('get', '../resources/js/placeDetails.php?placeId=' + place.place_id);
+	
+	http.onreadystatechange = processResponse;
+	
+	http.send(null);
+}
+
+function processResponse(){
+	if (http.readyState = 4){
+		var response = http.responseText;
+		document.getElementById("markerInfo").innerHTML = response;
+	}
+}
+	
 google.maps.event.addListener(marker, 'mouseover', function() {
   infowindow.setContent(contentString);
   infowindow.open(map, this);
@@ -99,7 +130,12 @@ google.maps.event.addListener(marker, 'mouseout', function() {
 });
 	
 google.maps.event.addListener(marker, 'click', function() {
-  window.open('https://maps.googleapis.com/maps/api/place/details/json?placeid=' + place.place_id +'&key=AIzaSyBhHPFmJmx7Irz6VwjeZYqjjZjS0tfo3mc');
+ 
+ //window.open('https://maps.googleapis.com/maps/api/place/details/json?placeid=' + place.place_id +'&key=AIzaSyBhHPFmJmx7Irz6VwjeZYqjjZjS0tfo3mc');
+ 
+  var markerInfo = document.getElementById("markerInfo");
+  makeGetRequestObject();
+  processResponse();
 });
 }
 </script>

@@ -11,6 +11,7 @@
 	$(document).ready(function(){
             $("#weather").hide(); //Hide by default
 			$("#tweetBox").hide(); //Hide by default.
+			$("#markerInfo").hide();
 			$(".projectLink").click(function(){ //When nav bar links are clicked.
 				//When clicking new titles, toggle it off then fade the new one in.
 					$("#contentTitle").toggle();
@@ -18,6 +19,7 @@
 					$("#contentTitle").fadeIn(500);	
 					$("#contentInfo").fadeIn(500);
 					$("#map").hide();
+					$("#markerInfo").hide();
 					$("#tweetBox").hide();
 					$("#weather").hide()
 					
@@ -45,28 +47,33 @@
 					case "Restaurants":
 						
 						initPlacesMap("restaurant");
+						$("#markerInfo").fadeIn(500);
 						$("#map").fadeIn(500);
 						$("#contentInfo").text("In <?php echo $_GET['city'];?>");
 						break;
 					case "Night life":
 						
 						initPlacesMap("night_club");
+						$("#markerInfo").fadeIn(500);
 						$("#map").fadeIn(500);
 						$("#contentInfo").text("In <?php echo $_GET['city'];?>");
 						break;
 					case "Cafes":
 						
 						initPlacesMap("cafe");
+						$("#markerInfo").fadeIn(500);
 						$("#map").fadeIn(500);
 						$("#contentInfo").text("In <?php echo $_GET['city'];?>");
 						break;
 					case "Churchs":
 						initPlacesMap("church");
+						$("#markerInfo").fadeIn(500);
 						$("#map").fadeIn(500);
 						$("#contentInfo").text("In <?php echo $_GET['city'];?>");
 						break;
 					case "Libraries":
 						initPlacesMap("library");
+						$("#markerInfo").fadeIn(500);
 						$("#map").fadeIn(500);
 						$("#contentInfo").text("In <?php echo $_GET['city'];?>");
 						break;

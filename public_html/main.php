@@ -5,6 +5,8 @@
 <script src="../resources/js/sideBarControl.js"></script> <!-- Controlls the side bars scrolling out. -->
 
 <?php
+	
+
 	//displays side panels depending on which side the iframe is on.
     if ($_GET['id'] == "left"){
         require_once("../resources/templates/left_panel.php");
@@ -28,8 +30,8 @@
 		<h1 id="contentTitle">Map</h1> 
 		<!-- On display of page, load map first so that it renders correctly. -->
 		<p id="contentInfo">Here is a map of <?php echo $city ?></p>
-		<div id="map" style="width: 100%; height: 400px;"></div>
-		
+		<div id="map"></div>
+		<div id="markerInfo"></div>
 		<!-- Pull tweets into below div -->
 		<div id="tweetBox" style="width: 100%; height: 80%; overflow:scroll">
 		<?php require_once("../resources/templates/getTweets.php"); ?>
