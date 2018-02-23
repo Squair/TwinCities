@@ -29,6 +29,7 @@
 				$("#contentTitle").text(newTitle); //Set text in content panel.
 				switch ($(this).text()){
 					case "Recent tweets":
+						//Make request for tweets here instead
 						$("#contentInfo").text("Here are the most recent 50 tweets from <?php echo $_GET['city'];?>, about <?php echo $_GET['city'];?>" )
 						$("#tweetBox").fadeIn(500);
 						break;

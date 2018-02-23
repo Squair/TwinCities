@@ -34,13 +34,13 @@ header #headerTitle {
 
 #map {
 	width: 100%; 
-	height: 400px;
+	height: 50%;
 }
 
 #markerInfo {
-	 width: 100%; 
-	 height: 200px;
-	 border: 2px solid black;
+	 overflow: scroll;
+	 height: 35%;
+	 
 }
 
 .navButton {
@@ -161,7 +161,7 @@ header #headerTitle {
 	text-align: center;
 	z-index: 2;
 	width: 75%;
-	height: 75%;
+	height: 80%;
 	
 	background-color: #73956F;
 	margin:  auto;
@@ -169,8 +169,15 @@ header #headerTitle {
 	box-shadow: 10px 5px 10px #888888;
 }
 
-#contentGrid #contentInfo {
-	font-size: 25px;
+#contentGrid #contentInfo{
+	font-size: 18px;
+	margin: 0;
+	padding 0;
+}
+
+#contentTitle {
+	margin: 2.5;
+	padding 0;
 }
 
 footer {
