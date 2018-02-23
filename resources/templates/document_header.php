@@ -1,3 +1,4 @@
+<?php require_once("db_connection.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +9,37 @@
 
 <title>DSA Twinned Cities</title>
 <script>
+	
+function createRequestObject(){
+	var tmpXmlHttpObject;
+	
+	if(window.XMLHttpRequest){
+		//Moz, saf
+		tmpXmlHttpObject = new XMLHttpRequest();
+	} else if (window.ActiveXObject){
+		//IE
+		tmpXmlHttpObject = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	return tmpXmlHttpObject;
+}	
+
+var http = createRequestObject();
+
+function makeGetRequestObject(resource){
+	http.open('get', resource);
+	
+	http.onreadystatechange = processResponse;
+	
+	http.send(null);
+}
+
+function processResponse(){
+	if (http.readyState = 4){
+		var response = http.responseText;
+		document.getElementById("tweetBox").innerHTML = response;
+	}
+}	
+
 	$(document).ready(function(){
             $("#weather").hide(); //Hide by default
 			$("#tweetBox").hide(); //Hide by default.
@@ -31,7 +63,10 @@
 					case "Recent tweets":
 						//Make request for tweets here instead
 						$("#contentInfo").text("Here are the most recent 50 tweets from <?php echo $_GET['city'];?>, about <?php echo $_GET['city'];?>" )
+						makeGetRequestObject('../resources/templates/getTweets.php?city=<?php echo $_GET['city']; ?>');
+						processResponse();
 						$("#tweetBox").fadeIn(500);
+
 						break;
 					case "Map":
 						initMap();

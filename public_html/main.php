@@ -1,5 +1,5 @@
 <?php require_once("../resources/templates/document_header.php")?>
-<?php require_once("../resources/templates/db_connection.php"); ?>
+<?php //require_once("../resources/templates/db_connection.php"); ?>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhHPFmJmx7Irz6VwjeZYqjjZjS0tfo3mc&libraries=places"></script> <!-- Google maps api script-->
 <?php require_once("../resources/js/googleMap.php"); ?> <!-- Google maps function call -->
 <script src="../resources/js/sideBarControl.js"></script> <!-- Controlls the side bars scrolling out. -->
@@ -33,9 +33,7 @@
 		<div id="map"></div>
 		<div id="markerInfo"></div>
 		<!-- Pull tweets into below div -->
-		<div id="tweetBox" style="width: 100%; height: 80%; overflow:scroll">
-		<?php require_once("../resources/templates/getTweets.php"); ?>
-		</div>
+		<div id="tweetBox" style="width: 100%; height: 80%; overflow:scroll"></div>
         
         <!-- Show weather widget -->
 		<div id="weather" style="width: 200%; height: 100%; overflow:scroll;">

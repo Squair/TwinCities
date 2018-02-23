@@ -90,18 +90,7 @@ var contentString = '<div id="content">'+
 	'</div>'+
 	'</div>';
 	
-function createRequestObject(){
-	var tmpXmlHttpObject;
-	
-	if(window.XMLHttpRequest){
-		//Moz, saf
-		tmpXmlHttpObject = new XMLHttpRequest();
-	} else if (window.ActiveXObject){
-		//IE
-		tmpXmlHttpObject = new ActiveXObject("Microsoft.XMLHTTP");
-	}
-	return tmpXmlHttpObject;
-}	
+
 
 var http = createRequestObject();
 
@@ -132,8 +121,6 @@ google.maps.event.addListener(marker, 'mouseout', function() {
 google.maps.event.addListener(marker, 'click', function() {
  
  //window.open('https://maps.googleapis.com/maps/api/place/details/json?placeid=' + place.place_id +'&key=AIzaSyBhHPFmJmx7Irz6VwjeZYqjjZjS0tfo3mc');
- 
-  var markerInfo = document.getElementById("markerInfo");
   makeGetRequestObject();
   processResponse();
 });
