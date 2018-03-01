@@ -31,6 +31,43 @@
 		<!-- On display of page, load map first so that it renders correctly. -->
 		<p id="contentInfo">Here is a map of <?php echo $city ?></p>
 		<div id="map"></div>
+		
+		<div id="userComments">
+		<form action="main.php?id=<?php echo $_GET['id'];?>&city=<?php echo $_GET['city'];?>" method="post">
+			<input class="commentInput" name="commentName" type="username" placeholder="Display name"></input>
+			<input class="commentInput" id="commentField" name="commentText" type="text" placeholder="Write your comment here!"></input>
+			<input class="commentInput" type="submit" name="commentSubmit"></input>
+		</form>
+		<?php
+		if (isset($connection)){
+			$city = $_GET['city'];
+			$query = "SELECT comments.name, comment FROM comments INNER JOIN city ON comments.idCity=city.idCity AND city.name='$city'";
+			echo "<table>";
+			foreach ($connection->query($query) as $row) {
+				echo "<tr>";
+				echo "<td style='width:25%;'><p>" . $row['name'] . "</p></td>";
+				echo "<td style='width:85%;'><p>" . $row['comment'] . "</p></td>";
+				echo "<tr>";
+			}
+			echo "</table>";
+			if (isset($_POST['commentSubmit'])){
+				if ($city == "Birmingham"){
+					$idCity = 1;
+				} else if ($city == "Chicago"){
+					$idCity = 2;
+				}
+				$comment = $_POST['commentText'];
+				$name = $_POST['commentName'];
+				$sql = "INSERT INTO comments (idCity, comment, name) VALUES ('$idCity', '$comment', '$name')";
+				$connection->query($sql);
+				header("main.php?id=" . $_GET['id'] . "&city=" . $_GET['city']);
+
+			}
+		} 
+		
+		?>
+		</div>
+		
 		<div id="markerInfo"></div>
 		<!-- Pull tweets into below div -->
 		<div id="tweetBox" style="width: 100%; height: 80%; overflow:scroll"></div>

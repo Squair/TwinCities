@@ -43,6 +43,28 @@ header #headerTitle {
 	 
 }
 
+table, tr, td {
+	border: 1px solid black;
+	width: 100%;
+}
+
+#userComments {
+	overflow: scroll;
+	 height: 35%;
+	
+}
+
+.commentInput {
+	float: left;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+#commentField {
+	height: 50px;
+}
+
 .navButton {
 	position: fixed;
 	padding: 0px 5px 0px 5px;

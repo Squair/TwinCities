@@ -43,6 +43,7 @@ function processResponse(){
 	$(document).ready(function(){
             $("#weather").hide(); //Hide by default
 			$("#tweetBox").hide(); //Hide by default.
+			
 			$("#markerInfo").hide();
 			$(".projectLink").click(function(){ //When nav bar links are clicked.
 				//When clicking new titles, toggle it off then fade the new one in.
@@ -54,6 +55,7 @@ function processResponse(){
 					$("#markerInfo").hide();
 					$("#tweetBox").hide();
 					$("#weather").hide()
+					$("#userComments").hide()
 					
 				var newTitle = $(this).text(); //Get the text.
 				console.log(newTitle);
@@ -70,6 +72,7 @@ function processResponse(){
 						break;
 					case "Map":
 						initMap();
+						$("#userComments").fadeIn(500);
 						$("#contentInfo").text("Here is a map of <?php echo $_GET['city'];?>")
 						$("#map").fadeIn(500);
 						break;
