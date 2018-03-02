@@ -102,9 +102,15 @@ function makeGetRequestObject(){
 }
 
 function processResponse(){
-	if (http.readyState = 4){
-		var response = http.responseText;
-		document.getElementById("markerInfo").innerHTML = response;
+	if (http){
+		http.onreadystatechange = function(){
+			if (http.readyState = 4){
+				document.getElementById("loading").style.display = 'none';
+				var response = http.responseText;
+				document.getElementById("markerInfo").innerHTML = response;
+
+			}
+		}
 	}
 }
 	
@@ -118,7 +124,7 @@ google.maps.event.addListener(marker, 'mouseout', function() {
 });
 	
 google.maps.event.addListener(marker, 'click', function() {
- 
+  document.getElementById("loading").style.display = 'block';
   makeGetRequestObject();
   processResponse();
 });

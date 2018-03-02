@@ -8,8 +8,11 @@
 <link type="text/css" rel="stylesheet" href="css/stylesheet.css">
 
 <title>DSA Twinned Cities</title>
+<div id="loading">
+	<img id="loader" src="../resources/images/loader.gif" />	
+</div>
 <script>
-	
+
 function createRequestObject(){
 	var tmpXmlHttpObject;
 	
@@ -29,7 +32,7 @@ function makeGetRequestObject(resource){
 	http.open('get', resource);
 	
 	http.onreadystatechange = processResponse;
-	
+	document.getElementById("loading").style.display = 'none';
 	http.send(null);
 }
 
@@ -41,9 +44,12 @@ function processResponse(){
 }	
 
 	$(document).ready(function(){
+			
             $("#weather").hide(); //Hide by default
 			$("#tweetBox").hide(); //Hide by default.
 			
+		
+		
 			$("#markerInfo").hide();
 			$(".projectLink").click(function(){ //When nav bar links are clicked.
 				//When clicking new titles, toggle it off then fade the new one in.

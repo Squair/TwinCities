@@ -222,6 +222,28 @@ iframe {
     float: left;
 }
 
+#loading {
+    display: none;
+    position: absolute;
+    top: 70%;
+    left: 45%;
+    width: 80px;
+    height: 80px;
+    padding:30px 15px 0px;
+    
+   
+   	margin:	0 0 0 -10px;
+    
+    z-index: 1002;
+    text-align:center;
+
+	transition: 0.2s;
+}
+#loader {
+
+	width: 100px;
+    height: 100px;
+}
 
 ::-webkit-scrollbar { 
     display: none; 
