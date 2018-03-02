@@ -34,37 +34,27 @@
 		
 		<div id="userComments">
 		<form action="main.php?id=<?php echo $_GET['id'];?>&city=<?php echo $_GET['city'];?>" method="post">
-			<input class="commentInput" name="commentName" type="username" placeholder="Display name"></input>
-			<input class="commentInput" id="commentField" name="commentText" type="text" placeholder="Write your comment here!"></input>
-			<input class="commentInput" type="submit" name="commentSubmit"></input>
+			<input class="commentInput" name="commentName" type="username" placeholder="Display name">
+			<input class="commentInput" id="commentField" name="commentText" type="text" placeholder="Write your comment here!">
+			<input class="commentInput" type="submit" name="commentSubmit">
 		</form>
-		<?php
-		if (isset($connection)){
-			$city = $_GET['city'];
-			$query = "SELECT comments.name, comment FROM comments INNER JOIN city ON comments.idCity=city.idCity AND city.name='$city'";
-			echo "<table>";
-			foreach ($connection->query($query) as $row) {
-				echo "<tr>";
-				echo "<td style='width:25%;'><p>" . $row['name'] . "</p></td>";
-				echo "<td style='width:85%;'><p>" . $row['comment'] . "</p></td>";
-				echo "<tr>";
-			}
-			echo "</table>";
-			if (isset($_POST['commentSubmit'])){
-				if ($city == "Birmingham"){
-					$idCity = 1;
-				} else if ($city == "Chicago"){
-					$idCity = 2;
+		<?php 
+			if (isset($connection)){
+				require_once("../resources/js/getComments.php"); 
+				if (isset($_POST['commentSubmit'])){
+					if ($city == "Birmingham"){
+						$idCity = 1;
+					} else if ($city == "Chicago"){
+						$idCity = 2;
+					}
+					$comment = $_POST['commentText'];
+					$name = $_POST['commentName'];
+					
+					$sth = $connection->prepare("INSERT INTO comments (idCity, comment, name) VALUES (?, ?, ?)");
+					$sth->execute(array($idCity, $comment, $name));
+					
 				}
-				$comment = $_POST['commentText'];
-				$name = $_POST['commentName'];
-				$sql = "INSERT INTO comments (idCity, comment, name) VALUES ('$idCity', '$comment', '$name')";
-				$connection->query($sql);
-				header("main.php?id=" . $_GET['id'] . "&city=" . $_GET['city']);
-
 			}
-		} 
-		
 		?>
 		</div>
 		
@@ -83,8 +73,10 @@
 
 <!-- Need to move this somewhere -->
 <script>
+
+
 	
-	initMap();
+initMap(); //Normal map initialisation
 	
 !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
 </script>

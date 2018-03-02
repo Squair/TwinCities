@@ -5,6 +5,7 @@ $city = $_GET['city'];
 $query = "SELECT * FROM city WHERE name='$city'";
 $result = $connection->query($query);
 $row = $result->fetch(PDO::FETCH_ASSOC);
+
 } else {
 	die("Could not connect to db.");
 }
@@ -90,12 +91,10 @@ var contentString = '<div id="content">'+
 	'</div>'+
 	'</div>';
 	
-
-
 var http = createRequestObject();
 
 function makeGetRequestObject(){
-	http.open('get', '../resources/js/placeDetails.php?placeId=' + place.place_id);
+	http.open('get', '../resources/js/placeDetails.php?placeId=' + place.place_id + '&cityId=<?php echo $row['idCity'];?>');
 	
 	http.onreadystatechange = processResponse;
 	
@@ -120,7 +119,6 @@ google.maps.event.addListener(marker, 'mouseout', function() {
 	
 google.maps.event.addListener(marker, 'click', function() {
  
- //window.open('https://maps.googleapis.com/maps/api/place/details/json?placeid=' + place.place_id +'&key=AIzaSyBhHPFmJmx7Irz6VwjeZYqjjZjS0tfo3mc');
   makeGetRequestObject();
   processResponse();
 });

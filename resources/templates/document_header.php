@@ -116,7 +116,6 @@ function processResponse(){
 						$("#map").fadeIn(500);
 						$("#contentInfo").text("In <?php echo $_GET['city'];?>");
 						break;
-					
 				}
 		});
 	});	
