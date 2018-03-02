@@ -5,8 +5,6 @@
 <script src="../resources/js/sideBarControl.js"></script> <!-- Controlls the side bars scrolling out. -->
 
 <?php
-	
-
 	//displays side panels depending on which side the iframe is on.
     if ($_GET['id'] == "left"){
         require_once("../resources/templates/left_panel.php");
@@ -42,17 +40,17 @@
 			if (isset($connection)){
 				require_once("../resources/js/getComments.php"); 
 				if (isset($_POST['commentSubmit'])){
-					if ($city == "Birmingham"){
-						$idCity = 1;
-					} else if ($city == "Chicago"){
-						$idCity = 2;
+					$sql = "SELECT idCity FROM city WHERE name='$city'";
+					$result = $connection->query($sql);
+					$row = $result->fetch(PDO::FETCH_ASSOC);
+					if ($row){
+						$idCity = $row['idCity'];
+						$comment = $_POST['commentText'];
+						$name = $_POST['commentName'];
+
+						$sth = $connection->prepare("INSERT INTO comments (idCity, comment, name) VALUES (?, ?, ?)");
+						$sth->execute(array($idCity, $comment, $name));
 					}
-					$comment = $_POST['commentText'];
-					$name = $_POST['commentName'];
-					
-					$sth = $connection->prepare("INSERT INTO comments (idCity, comment, name) VALUES (?, ?, ?)");
-					$sth->execute(array($idCity, $comment, $name));
-					
 				}
 			}
 		?>

@@ -1,6 +1,4 @@
 <?php
-
-
 	$city = $_GET['city'];
 	$query = "SELECT comments.name, comment, time FROM comments INNER JOIN city ON comments.idCity=city.idCity AND city.name='$city' ORDER BY time DESC";
 	echo "<table>";
