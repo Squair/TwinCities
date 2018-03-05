@@ -134,7 +134,7 @@ if (isset($connection)){ //Check database for existing place ID that has been ad
 				$author = $review['author_name'];
 				$rating = $review['rating'];
 				$text = $review['text'];
-				$timeAgo = $review['relative_time_description'];
+				$timeAgo = date("Y-m-d H:i:s", $review['time']);
 				$sth = $connection->prepare("INSERT INTO place_reviews (idPlace, author, rating, text, timeAgo) VALUES (?,?,?,?,?)");
 				$sth->execute(array($placeId,$author,$rating,$text,$timeAgo));
 				
@@ -176,7 +176,7 @@ if (isset($phpData['result']['reviews'])){ //Check place had reviews associated.
 		echo "<hr>";
 		echo "<h2>" . $review['rating'] . " - " . $review['author_name'] . "</h2>";
 		echo "<p>" . $review['text'] . "</p>";
-		echo "<p style='font-weight:bold;'>" . $review['relative_time_description'] . "</p>";
+		echo "<p style='font-weight:bold;'>" . date("Y-m-d H:i:s", $review['time']) . "</p>";
 
 	}
 }
