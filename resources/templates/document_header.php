@@ -32,7 +32,6 @@ function makeGetRequestObject(resource){
 	http.open('get', resource);
 	
 	http.onreadystatechange = processResponse;
-	document.getElementById("loading").style.display = 'none';
 	http.send(null);
 }
 

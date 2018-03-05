@@ -102,7 +102,7 @@ function makeGetRequestObject(){
 }
 
 function processResponse(){
-	if (http){
+
 		http.onreadystatechange = function(){
 			if (http.readyState = 4){
 				document.getElementById("loading").style.display = 'none';
@@ -111,7 +111,7 @@ function processResponse(){
 
 			}
 		}
-	}
+	
 }
 	
 google.maps.event.addListener(marker, 'mouseover', function() {

@@ -1,6 +1,7 @@
 <?php require_once("../resources/templates/document_header.php")?>
-<?php //require_once("../resources/templates/db_connection.php"); ?>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhHPFmJmx7Irz6VwjeZYqjjZjS0tfo3mc&libraries=places"></script> <!-- Google maps api script-->
+<?php $tempKey = "AIzaSyA4KZhYCdAR-r1lBaoTVB7cvXh3uiMLPyA"; ?>
+<?php $normalKey = "AIzaSyBhHPFmJmx7Irz6VwjeZYqjjZjS0tfo3mc"; ?>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4KZhYCdAR-r1lBaoTVB7cvXh3uiMLPyA&libraries=places"></script> <!-- Google maps api script-->
 <?php require_once("../resources/js/googleMap.php"); ?> <!-- Google maps function call -->
 <script src="../resources/js/sideBarControl.js"></script> <!-- Controlls the side bars scrolling out. -->
 
