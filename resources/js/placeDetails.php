@@ -33,7 +33,7 @@ if (isset($connection)){ //Check database for existing place ID that has been ad
 			//echo "<img src=https://maps.googleapis.com/maps/api/place/photo?maxwidth=" . $row['maxWidth'] . "&photoreference=" . $row['idPhoto'] . "&key=AIzaSyBhHPFmJmx7Irz6VwjeZYqjjZjS0tfo3mc style='height: 175px; width: 175px;'/>";
 		}
 		//Pull reviews relating to place ID.
-		$sql = "SELECT * FROM place_reviews WHERE idPlace='$placeId'";
+		$sql = "SELECT * FROM place_reviews WHERE idPlace='$placeId' ORDER BY timeAgo DESC";
 		$result = $connection->query($sql);
 		foreach ($result as $review){
 			echo "<hr>";
@@ -95,19 +95,10 @@ if (isset($connection)){ //Check database for existing place ID that has been ad
 				}
 			}
 
-			//Check if place_id exists in city_places, then add new place_id into city_places 
-			//for the city where the place is.
-			$sql = "SELECT idPlace FROM city_places WHERE idPlace='$placeId'";
-			$result = $connection->query($sql);
-			$row = $result->fetch(PDO::FETCH_ASSOC);
-			if (!$row){
-				$sql = "INSERT INTO city_places (idCity, idPlace) VALUES ('$cityId', '$placeId')";
-				$connection->query($sql);
-			}
-
-			//Add new place into the place table		
-			$sth = $connection->prepare("REPLACE INTO places (idPlace, name, url, phone, address) VALUES (?,?,?,?,?)");
-			$sth->execute(array($placeId, $name, $url, $phone, $address));
+			//Add new place into the place table
+			//Replace will update places that need to be cached.
+			$sth = $connection->prepare("REPLACE INTO places (idPlace, idCity, name, url, phone, address) VALUES (?,?,?,?,?,?)");
+			$sth->execute(array($placeId, $cityId, $name, $url, $phone, $address));
 		}
 		//Add all photo reference's for each place
 		if (isset($phpData['result']['photos'])){
@@ -135,6 +126,7 @@ if (isset($connection)){ //Check database for existing place ID that has been ad
 				$rating = $review['rating'];
 				$text = $review['text'];
 				$timeAgo = date("Y-m-d H:i:s", $review['time']);
+				
 				$sth = $connection->prepare("INSERT INTO place_reviews (idPlace, author, rating, text, timeAgo) VALUES (?,?,?,?,?)");
 				$sth->execute(array($placeId,$author,$rating,$text,$timeAgo));
 				
@@ -167,6 +159,7 @@ if (isset($phpData['result']['website'])){ //Check place had url associated.
 			
 if (isset($phpData['result']['photos'])){ //Check place had photos associated.
 	foreach($phpData['result']['photos'] as $photo){
+		//Commented just to save API calls for the moment.
 		//echo "<img src=https://maps.googleapis.com/maps/api/place/photo?maxwidth=" . $photo['width'] . "&photoreference=" . $photo['photo_reference'] . "&key=AIzaSyBhHPFmJmx7Irz6VwjeZYqjjZjS0tfo3mc style='height: 175px; width: 175px;'/>";
 	}
 }
