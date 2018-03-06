@@ -4,7 +4,7 @@ $city = $_GET['city'];
 
 $json = file_get_contents("http://api.openweathermap.org/data/2.5/forecast?id=3333125&mode=json&appid=".$apiKey);
 $phpData = json_decode($json, true);
-echo $phpData['list']['0']['main']['temp'];
+//echo $phpData['list']['0']['main']['temp'];
 //var_dump($phpData);
 
 foreach($phpData['list'] as $result){

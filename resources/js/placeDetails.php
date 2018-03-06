@@ -24,6 +24,17 @@ if (isset($connection)){ //Check database for existing place ID that has been ad
 		echo "<p> Phone - " . $row['phone'] . "</p>";
 		echo "<p><a href='" . $row['url'] . "'>" . $row['url'] . "</a></p>";
 		
+		//Get all place_types relating to the place and list them.
+		$sql = "SELECT * FROM place_type INNER JOIN type ON place_type.idType=type.idType WHERE place_type.idPlace='$placeId'";
+		$result = $connection->query($sql);
+		
+		$placeTypes = "<p>";
+		foreach ($result as $row){
+			$placeTypes .= $row['name'] . ", ";
+		}
+		$placeTypes .= "</p>";
+		echo $placeTypes;
+		
 		//Pull photos relating to place ID.
 		$sql = "SELECT idPhoto, maxWidth FROM place_photos WHERE idPlace='$placeId'";
 		$result = $connection->query($sql);
@@ -156,6 +167,14 @@ if (isset($phpData['result']['website'])){ //Check place had url associated.
 	echo "<p><a href='" . $phpData['result']['website'] . "'>" . $phpData['result']['website'] . "</a></p>";
 } 
 
+if (isset($phpData['result']['types'])){
+	$placeTypes = "<p>";
+	foreach($phpData['result']['types'] as $type){
+		$placeTypes .= $type . ", ";
+	}
+	$placeTypes = "</p>";
+	echo $placeTypes;
+}
 			
 if (isset($phpData['result']['photos'])){ //Check place had photos associated.
 	foreach($phpData['result']['photos'] as $photo){

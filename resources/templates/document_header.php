@@ -36,12 +36,17 @@ function makeGetRequestObject(resource){
 }
 
 function processResponse(){
-	if (http.readyState = 4){
-		var response = http.responseText;
-		document.getElementById("tweetBox").innerHTML = response;
-	}
+		http.onreadystatechange = function(){
+			if (http.readyState = 4){
+				document.getElementById("loading").style.display = 'none';
+				var response = http.responseText;
+				document.getElementById("tweetBox").innerHTML = response;
+
+			}
+		}
 }	
-    function makeWGetRequestObject(resource){
+
+function makeWeatherRequestObject(resource){
 	http.open('get', resource);
 	
 	http.onreadystatechange = weatherResponse;
@@ -49,10 +54,14 @@ function processResponse(){
 }
     
 function weatherResponse(){
-	if (http.readyState = 4){
-		var response = http.responseText;
-		document.getElementById("weather").innerHTML = response;
-	}
+		http.onreadystatechange = function(){
+			if (http.readyState = 4){
+				document.getElementById("loading").style.display = 'none';
+				var response = http.responseText;
+				document.getElementById("weather").innerHTML = response;
+
+			}
+		}
 }
     
     
@@ -85,6 +94,7 @@ function weatherResponse(){
 					case "Recent tweets":
 						//Make request for tweets here instead
 						$("#contentInfo").text("Here are the most recent 50 tweets from <?php echo $_GET['city'];?>, about <?php echo $_GET['city'];?>" )
+						document.getElementById("loading").style.display = 'block';
 						makeGetRequestObject('../resources/templates/getTweets.php?city=<?php echo $_GET['city']; ?>');
 						processResponse();
 						$("#tweetBox").fadeIn(500);
@@ -102,7 +112,8 @@ function weatherResponse(){
 					case "Weather":
 						$("#contentInfo").text("In <?php echo $_GET['city'];?>");
                         // Create weather request through AJAX.
-                        makeWGetRequestObject('../resources/templates/weather.php?city=<?php echo $_GET['city']; ?>')
+						document.getElementById("loading").style.display = 'block';
+                        makeWeatherRequestObject('../resources/templates/weather.php?city=<?php echo $_GET['city']; ?>')
                         
                         weatherResponse();
                         $("#weather").fadeIn(500);
