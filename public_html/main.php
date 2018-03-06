@@ -6,6 +6,7 @@
 <script src="../resources/js/sideBarControl.js"></script> <!-- Controlls the side bars scrolling out. -->
 
 <?php
+	date_default_timezone_set("GB"); //Set default timezone to UK, otherwise date() is hour ahead.
 	//displays side panels depending on which side the iframe is on.
     if ($_GET['id'] == "left"){
         require_once("../resources/templates/left_panel.php");
@@ -49,8 +50,8 @@
 						$comment = $_POST['commentText'];
 						$name = $_POST['commentName'];
 
-						$sth = $connection->prepare("INSERT INTO comments (idCity, comment, name) VALUES (?, ?, ?)");
-						$sth->execute(array($idCity, $comment, $name));
+						$sth = $connection->prepare("INSERT INTO comments (idCity, comment, name, time) VALUES (?, ?, ?, ?)");
+						$sth->execute(array($idCity, $comment, $name, date("Y-m-d H:i:s")));
 					}
 				}
 			}

@@ -12,7 +12,7 @@ $arrContextOptions=array( //This array when passed to file_get_contents prevents
 
 
 if (isset($connection)){ //Check database for existing place ID that has been added within 30 days.
-	$sql = "SELECT * FROM places WHERE idPlace='$placeId' AND dateAdded BETWEEN NOW() - INTERVAL 30 DAY AND NOW()"; 
+	$sql = "SELECT * FROM places WHERE idPlace='$placeId' AND dateAdded > NOW() - INTERVAL 30 DAY"; 
 	$result = $connection->query($sql);
 	$row = $result->fetch(PDO::FETCH_ASSOC);
 	
@@ -89,8 +89,8 @@ if (isset($connection)){ //Check database for existing place ID that has been ad
 				$row = $result->fetch(PDO::FETCH_ASSOC);
 				
 				if (!$row){
-					$sql = "INSERT INTO type (name) VALUES ('$type')";
-					$connection->query($sql);
+					$sth = $connection->prepare("INSERT INTO type (name) VALUES (?)");
+					$sth->execute(array($type));
 				}
 			}
 
@@ -101,15 +101,15 @@ if (isset($connection)){ //Check database for existing place ID that has been ad
 				$row = $result->fetch(PDO::FETCH_ASSOC);
 				//Add all types refering to each place.
 				if (!$row){
-					$sql = "INSERT INTO place_type (idType, idPlace) VALUES ((SELECT idType FROM type WHERE name='$type'), '$placeId')";
-					$connection->query($sql);	
+					$sth = $connection->prepare("INSERT INTO place_type (idType, idPlace) VALUES ((SELECT idType FROM type WHERE name=?), ?)");
+					$sth->execute(array($type, $placeId));	
 				}
 			}
 
 			//Add new place into the place table
 			//Replace will update places that need to be cached.
-			$sth = $connection->prepare("REPLACE INTO places (idPlace, idCity, name, url, phone, address) VALUES (?,?,?,?,?,?)");
-			$sth->execute(array($placeId, $cityId, $name, $url, $phone, $address));
+			$sth = $connection->prepare("REPLACE INTO places (idPlace, idCity, name, url, phone, address, dateAdded) VALUES (?,?,?,?,?,?,?)");
+			$sth->execute(array($placeId, $cityId, $name, $url, $phone, $address, date("Y-m-d H:i:s")));
 		}
 		//Add all photo reference's for each place
 		if (isset($phpData['result']['photos'])){
@@ -122,8 +122,9 @@ if (isset($connection)){ //Check database for existing place ID that has been ad
 				$row = $result->fetch(PDO::FETCH_ASSOC);
 				//If photo reference doesnt exist for that place, add it.
 				if (!$row){
-					$sql = "INSERT INTO place_photos (idPhoto, idPlace, maxWidth) VALUES ('$photoRef','$placeId', '$maxWidth')";
-					$connection->query($sql);
+					$sth = $connection->prepare("INSERT INTO place_photos (idPhoto, idPlace, maxWidth) VALUES (?, ?, ?)");
+					$sth->execute(array($photoRef, $placeId, $maxWidth));
+					
 					$tempKey = "AIzaSyA4KZhYCdAR-r1lBaoTVB7cvXh3uiMLPyA";
 					//Save photo with photo reference as its name to server.
 					file_put_contents("../place_photos/" . $photo['photo_reference'] . ".jpg", file_get_contents("https://maps.googleapis.com/maps/api/place/photo?maxwidth=" . $photo['width'] . "&photoreference=" . $photo['photo_reference'] . "&key=" . $tempKey, false, stream_context_create($arrContextOptions)));
