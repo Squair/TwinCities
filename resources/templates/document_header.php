@@ -41,6 +41,21 @@ function processResponse(){
 		document.getElementById("tweetBox").innerHTML = response;
 	}
 }	
+    function makeWGetRequestObject(resource){
+	http.open('get', resource);
+	
+	http.onreadystatechange = weatherResponse;
+	http.send(null);
+}
+    
+function weatherResponse(){
+	if (http.readyState = 4){
+		var response = http.responseText;
+		document.getElementById("weather").innerHTML = response;
+	}
+}
+    
+    
 
 	$(document).ready(function(){
 			
@@ -85,8 +100,13 @@ function processResponse(){
 						$("#contentInfo").text("Pull all photos with photo api here.");
 						break;
 					case "Weather":
-                        $("#weather").fadeIn(500);
 						$("#contentInfo").text("In <?php echo $_GET['city'];?>");
+                        // Create weather request through AJAX.
+                        makeWGetRequestObject('../resources/templates/weather.php?city=<?php echo $_GET['city']; ?>')
+                        
+                        weatherResponse();
+                        $("#weather").fadeIn(500);
+
 						break;
 					case "Restaurants":
 						
@@ -95,6 +115,10 @@ function processResponse(){
 						$("#map").fadeIn(500);
 						$("#contentInfo").text("In <?php echo $_GET['city'];?>");
 						break;
+                        
+                    case "RSS":
+                        window.open("../resources/templates/rss.php");
+                        break;
 					case "Night life":
 						
 						initPlacesMap("night_club");

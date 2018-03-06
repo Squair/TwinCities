@@ -56,26 +56,19 @@
 			}
 		?>
 		</div>
-		
+		<div id="weather" style="width: 100%; height: 80%; overflow:scroll">
+            
+        </div>
 		<div id="markerInfo"></div>
 		<!-- Pull tweets into below div -->
 		<div id="tweetBox" style="width: 100%; height: 80%; overflow:scroll"></div>
         
-        <!-- Show weather widget -->
-		<div id="weather" style="width: 200%; height: 100%; overflow:scroll;">
-            <a class="weatherwidget-io" href="<?php echo $weatherLink; ?>" data-label_1="<?php echo $city; ?>" data-label_2="WEATHER" data-theme="original" ><?php echo $city; ?> WEATHER</a>
-		</div>
+
 		
 		<img id="contentImg">
 	</div>
 </main>
 
-<!-- Need to move this somewhere -->
 <script>
-
-
-	
 initMap(); //Normal map initialisation
-	
-!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
 </script>
