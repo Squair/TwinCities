@@ -106,10 +106,36 @@ if (isset($connection)){ //Check database for existing place ID that has been ad
 				}
 			}
 
+			//Seperates all address data into assoc, then to be inserted into db.
+			$address = array("floor"=>NULL, "street_number"=>NULL, "route"=>NULL, "locality"=>NULL, "region"=>NULL, "post_code"=>NULL);
+			foreach ($phpData['result']['address_components'] as $component){
+				foreach ($component['types'] as $type){
+					switch ($type){
+						case "floor":
+							$address['floor'] = $component['short_name'];
+							break;
+						case "street_number":
+							$address['street_number'] = $component['short_name'];
+							break;
+						case "route":
+							$address['route'] = $component['short_name'];
+							break;
+						case "locality":
+							$address['locality'] = $component['short_name'];
+							break;
+						case "administrative_area_level_1":
+							$address['region'] = $component['short_name'];
+							break;
+						case "postal_code":
+							$address['post_code'] = $component['short_name'];	
+							break;
+					}
+				}
+			}
 			//Add new place into the place table
 			//Replace will update places that need to be cached.
-			$sth = $connection->prepare("REPLACE INTO places (idPlace, idCity, name, url, phone, address, dateAdded) VALUES (?,?,?,?,?,?,?)");
-			$sth->execute(array($placeId, $cityId, $name, $url, $phone, $address, date("Y-m-d H:i:s")));
+			$sth = $connection->prepare("REPLACE INTO places (idPlace, idCity, name, url, floor, street_number, route, locality, region, post_code, phone, dateAdded) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+			$sth->execute(array($placeId, $cityId, $name, $url, $address['floor'], $address['street_number'], $address['route'], $address['locality'], $address['region'], $address['post_code'], $phone, date("Y-m-d H:i:s")));
 		}
 		//Add all photo reference's for each place
 		if (isset($phpData['result']['photos'])){
@@ -157,6 +183,10 @@ if (isset($phpData['result']['name'])){ //Check place had name associated.
 if (isset($phpData['result']['formatted_address'])){ //Check place had address associated.
 	echo "<p>" . $phpData['result']['formatted_address'] . "</p>";
 
+}
+
+foreach ($phpData['result']['address_components'] as $component){
+	echo "<p>" . $component['short_name'] . "</p>";
 }
 
 if (isset($phpData['result']['formatted_phone_number'])){ //Check place had phone number associated.
