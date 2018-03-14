@@ -60,7 +60,6 @@ foreach($phpData['list'] as $result) {
 
     echo "<br><br>";
 }
-echo "<p> Test</p>";
 
 
 ?>
