@@ -143,22 +143,32 @@ if (isset($connection)){ //Check database for existing place ID that has been ad
 				$photoRef = $photo['photo_reference'];
 				$maxWidth = $photo['width'];
 				//Check if photo reference already exists.
-				$sql = "SELECT idPhoto FROM place_photos WHERE idPhoto='$photoRef' AND idPlace='$placeId'";
+				$sql = "SELECT idPhoto FROM place_photos WHERE idPlace='$placeId'";
 				$result = $connection->query($sql);
 				$row = $result->fetch(PDO::FETCH_ASSOC);
-				//If photo reference doesnt exist for that place, add it.
-				if (!$row){
+				if ($row){
+					//Remove any photos previously save for that place.
+					$path = "../place_photos/" . $row['idPhoto'] . ".jpg";
+					unlink($path);
+				}
+				//Remove any previous entrys from db.
+					$sql = "DELETE FROM place_photos WHERE idPlace='$placeId'";
+					$connection->query($sql);
+				//Add new photos.
 					$sth = $connection->prepare("INSERT INTO place_photos (idPhoto, idPlace, maxWidth) VALUES (?, ?, ?)");
 					$sth->execute(array($photoRef, $placeId, $maxWidth));
 					
 					$key = "AIzaSyBhHPFmJmx7Irz6VwjeZYqjjZjS0tfo3mc";
 					//Save photo with photo reference as its name to server.
 					file_put_contents("../place_photos/" . $photo['photo_reference'] . ".jpg", file_get_contents("https://maps.googleapis.com/maps/api/place/photo?maxwidth=" . $photo['width'] . "&photoreference=" . $photo['photo_reference'] . "&key=" . $key, false, stream_context_create($arrContextOptions)));
-				}
+				
 			}
 		}
 		//Add place reviews for place
 		if (isset($phpData['result']['reviews'])){
+			//Remove any older reviews to avoid duplication.
+			$sql = "DELETE FROM place_reviews WHERE idPlace='$placeId'";
+			$connection->query($sql);
 			foreach($phpData['result']['reviews'] as $review){
 				$author = $review['author_name'];
 				$rating = $review['rating'];
