@@ -87,7 +87,7 @@ function weatherResponse(){
 			
             $("#weather").hide(); //Hide by default
 			$("#tweetBox").hide(); //Hide by default.
-			
+			$("#photoBox").hide();
 		
 		
 			$("#markerInfo").hide();
@@ -102,7 +102,7 @@ function weatherResponse(){
 					$("#tweetBox").hide();
 					$("#weather").hide()
 					$("#userComments").hide()
-					
+					$("#photoBox").hide();
 				var newTitle = $(this).text(); //Get the text.
 				console.log(newTitle);
 
@@ -124,6 +124,7 @@ function weatherResponse(){
 						$("#map").fadeIn(500);
 						break;
 					case "Photos":
+						$("#photoBox").fadeIn(500);
 						$("#contentInfo").text("Here are photos of <?php echo $_GET['city'];?>");
 						makeFlickrRequestObject('../resources/templates/flickr.php?city=<?php echo $_GET['city']; ?>');
 						flickrResponse();
