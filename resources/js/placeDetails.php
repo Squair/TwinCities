@@ -20,7 +20,7 @@ if (isset($connection)){ //Check database for existing place ID that has been ad
 	if ($row){ //If place ID was found in database, print it out.
 		
 		echo "<h4>" . $row['name'] . "</h4>";
-		echo "<p>" . $row['address'] . "</p>";
+		echo "<p>" . $row['floor'] . ", " . $row['street_number'] . ", " . $row['route'] . ", " . $row['locality'] . ", " . $row['region'] . ", " . $row['post_code'] . "</p>";
 		echo "<p> Phone - " . $row['phone'] . "</p>";
 		echo "<p><a href='" . $row['url'] . "'>" . $row['url'] . "</a></p>";
 		
@@ -151,9 +151,9 @@ if (isset($connection)){ //Check database for existing place ID that has been ad
 					$sth = $connection->prepare("INSERT INTO place_photos (idPhoto, idPlace, maxWidth) VALUES (?, ?, ?)");
 					$sth->execute(array($photoRef, $placeId, $maxWidth));
 					
-					$tempKey = "AIzaSyA4KZhYCdAR-r1lBaoTVB7cvXh3uiMLPyA";
+					$key = "AIzaSyBhHPFmJmx7Irz6VwjeZYqjjZjS0tfo3mc";
 					//Save photo with photo reference as its name to server.
-					file_put_contents("../place_photos/" . $photo['photo_reference'] . ".jpg", file_get_contents("https://maps.googleapis.com/maps/api/place/photo?maxwidth=" . $photo['width'] . "&photoreference=" . $photo['photo_reference'] . "&key=" . $tempKey, false, stream_context_create($arrContextOptions)));
+					file_put_contents("../place_photos/" . $photo['photo_reference'] . ".jpg", file_get_contents("https://maps.googleapis.com/maps/api/place/photo?maxwidth=" . $photo['width'] . "&photoreference=" . $photo['photo_reference'] . "&key=" . $key, false, stream_context_create($arrContextOptions)));
 				}
 			}
 		}
@@ -180,14 +180,13 @@ if (isset($phpData['result']['name'])){ //Check place had name associated.
 	echo "<h4>" . $phpData['result']['name'] . "</h4>";
 
 }
-if (isset($phpData['result']['formatted_address'])){ //Check place had address associated.
-	echo "<p>" . $phpData['result']['formatted_address'] . "</p>";
 
-}
-
+$address = "<p>";
 foreach ($phpData['result']['address_components'] as $component){
-	echo "<p>" . $component['short_name'] . "</p>";
+	$address .= $component['short_name'] . ", ";
 }
+$address .= "</p>";
+echo $address;
 
 if (isset($phpData['result']['formatted_phone_number'])){ //Check place had phone number associated.
 	echo "<p> Phone - " . $phpData['result']['formatted_phone_number'] . "</p>";
@@ -203,7 +202,7 @@ if (isset($phpData['result']['types'])){
 	foreach($phpData['result']['types'] as $type){
 		$placeTypes .= $type . ", ";
 	}
-	$placeTypes = "</p>";
+	$placeTypes .= "</p>";
 	echo $placeTypes;
 }
 			
