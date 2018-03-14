@@ -7,6 +7,9 @@
 		<a href="#" class="projectLink"><p>Recent tweets</p></a>
 		<a href="#" class="projectLink"><p>Photos</p></a>
 		<a href="#" class="projectLink"><p>Weather</p></a>
+		<a href="#" class="projectLink"><p>RSS</p></a>
+		<a href="#" class="projectLink"><p>XML</p></a>
+
 	<h1>Places of intrest</h1>
 
 		<a href="#" class="projectLink"><p>Restaurants</p></a>
@@ -14,6 +17,7 @@
 		<a href="#" class="projectLink"><p>Cafes</p></a>
 		<a href="#" class="projectLink"><p>Churchs</p></a>
 		<a href="#" class="projectLink"><p>Libraries</p></a>
+
 
 
 	<div>

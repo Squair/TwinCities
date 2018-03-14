@@ -8,6 +8,7 @@
 		<a href="#" class="projectLink"><p>Photos</p></a>
 		<a href="#" class="projectLink"><p>Weather</p></a>
 		<a href="#" class="projectLink"><p>RSS</p></a>
+		<a href="#" class="projectLink"><p>XML</p></a>
 
 	<h1>Places of intrest</h1>
 

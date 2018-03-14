@@ -130,6 +130,10 @@ function weatherResponse(){
                     case "RSS":
                         window.open("../resources/templates/rss.php");
                         break;
+						
+					case "XML":
+						window.open("../resources/templates/DB-xml.php");
+						window.open("../resources/templates/API-xml.php");
 					case "Night life":
 						
 						initPlacesMap("night_club");
