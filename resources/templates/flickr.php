@@ -66,7 +66,12 @@
     <?php 
 
        session_start();
-       
+	   require_once("db_connection.php");
+       $city = $_GET['city'];
+	   $sql = "SELECT * FROM city WHERE name='$city'";
+	   $result = $connection->query($sql);
+	   $row = $result->fetch(PDO::FETCH_ASSOC);
+	   
        if (isset($_SESSION['CACHED'])) {
            if (time() - $_SESSION['CACHED'] > 10) { //Every Day Make API Call 86400
                 print "API CALL";
@@ -74,7 +79,7 @@
                 $_SESSION['CACHED'] = time(); // update last activity time stamp
            } else {
                 print "DB CALL";
-                getCachedImages();
+                getCachedImages($row['idCity']);
            }
        } else 
             $_SESSION['CACHED'] = time(); // Set Initial Cached Time Stamp
@@ -90,6 +95,7 @@
 			$result = $connection->query($sql);
 			$row = $result->fetch(PDO::FETCH_ASSOC);
 			
+			$idCity = $row['idCity'];
 			$lat = $row['latitude'];
 			$lon = $row['longitude'];
 
@@ -114,7 +120,7 @@
             
             
             
-            $deleteRecords = $connection->prepare("DELETE FROM flickr");
+            $deleteRecords = $connection->prepare("DELETE FROM flickr WHERE idCity='$idCity'");
             $deleteRecords->execute();
             
             print "<div class='images'>";
@@ -123,32 +129,31 @@
                     break;
                 $element = $object['photos']['photo'][$i];
                 $image = "https://farm" . $element['farm'] . ".staticflickr.com/" . $element['server'] . "/" . $element['id'] . "_" . $element['secret'] . "_m.jpg";
-                cacheImages($image, $element['title']);//Cache The Images
+                cacheImages($image, $element['title'], $row['idCity']);//Cache The Images
                 
                 displayImage($image, $element['title']); //Print Images To Screen
             }
             print "</div>";
         }
        
-       function cacheImages($imgUrl, $caption) {
+       function cacheImages($imgUrl, $caption, $idCity) {
             require("db_connection.php");
             if (isset($connection)) {
-                $query = $connection->prepare("INSERT INTO flickr (IMAGE_URL, CAPTION, TIME_CACHED) VALUES (?, ?, ?)");
-                $query->execute(array($imgUrl, $caption, date("Y-m-d H:i:s")));
+                $query = $connection->prepare("INSERT INTO flickr (idCity, IMAGE_URL, CAPTION, TIME_CACHED) VALUES (?, ?, ?, ?)");
+                $query->execute(array($idCity, $imgUrl, $caption, date("Y-m-d H:i:s")));
             }
        }
        
-       function getCachedImages() {
-            require_once("db_connection.php");
-           	if (isset($connection)) {
-                $getImages = $connection->prepare("SELECT * FROM flickr ORDER BY id ASC");
-                $getImages->execute();
-                $images = $getImages->fetchAll();
+       function getCachedImages($idCity) {
+            require("db_connection.php");
+				$sql = "SELECT * FROM flickr WHERE idCity='$idCity'";
+				$result = $connection->query($sql);
 				
-                foreach ($images as $image) {
+				
+                foreach ($result as $image) {
                     displayImage($image['IMAGE_URL'], $image['CAPTION']);
                 }
-			}
+			
        }
        
         function displayImage($imgUrl, $caption) {
