@@ -31,8 +31,10 @@
 	$path = $twitter->appendChild($path);
 
 	//Flickr
-	$flickr = $xml->createElement("flickr","f4ee116742bf19b59d294611cb7b834b");
+	$flickr = $xml->createElement("flickr");
 	$flickr = $container->appendChild($flickr);
+	$key = $xml->createElement("key", "f4ee116742bf19b59d294611cb7b834b");
+	$key = $flickr->appendChild($key);
 	$path = $xml->createElement("path", "https://api.flickr.com/services/rest/?method=flickr.photos.search&#038api_key=[API Key]&#038lat=[Latitude]&#038lon=[Longitude]&#038format=json&#038jsoncallback=?");
 	$path = $flickr->appendChild($path);
 

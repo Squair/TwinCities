@@ -47,6 +47,24 @@
 		$time = $comment->appendChild($time);
 	}
 
+	$sql = "SELECT * FROM flickr";
+	$result = $connection->query($sql);
+
+	foreach ($result as $flickrResult){
+		$flickr = $xml->createElement("flickrPhoto");
+		$flickr = $container->appendChild($flickr);
+		
+		$id = $xml->createElement("id", $flickrResult['ID']);
+		$id = $flickr->appendChild($id);
+		$IMAGE_URL = $xml->createElement("IMAGE_URL", $flickrResult['IMAGE_URL']);
+		$IMAGE_URL = $flickr->appendChild($IMAGE_URL);
+		$CAPTION = $xml->createElement("CAPTION", $flickrResult['CAPTION']);
+		$CAPTION = $flickr->appendChild($CAPTION);
+		$TIME_CACHED = $xml->createElement("TIME_CACHED", $flickrResult['TIME_CACHED']);
+		$TIME_CHACHED = $flickr->appendChild($TIME_CACHED);
+	}
+
+
 	$sql = "SELECT * FROM places";
 	$result = $connection->query($sql);
 	

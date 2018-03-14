@@ -53,6 +53,21 @@ foreach ($rs_post as $row) {
     $data .= '</item>';
 }
 
+// flickr
+$sql = 'SELECT * FROM flickr ORDER BY ID DESC';
+$query = $pdo->prepare($sql);
+$query->execute();
+$rs_post = $query->fetchAll();
+
+foreach ($rs_post as $row) {
+    $data .= '<item>';
+    $data .= '<ID>'.$row['ID'].'</ID>';
+	$data .= '<IMAGE_URL>'.$row['IMAGE_URL'].'</IMAGE_URL>';
+    $data .= '<CAPTION>'.$row['CAPTION'].'</CAPTION>';
+    $data .= '<TIME_CACHED>'.$row['TIME_CACHED'].'</TIME_CACHED>';
+    $data .= '</item>';
+}
+
 // Places
 $sql = 'SELECT * FROM places ORDER BY name DESC';
 $query = $pdo->prepare($sql);
@@ -62,10 +77,16 @@ $rs_post = $query->fetchAll();
 foreach ($rs_post as $row) {
     $data .= '<item>';
     $data .= '<idPlace>'.$row['idPlace'].'</idPlace>';
+	$data .= '<idCity>'.$row['idCity'].'</idCity>';
     $data .= '<name>'.$row['name'].'</name>';
     $data .= '<url>'.$row['url'].'</url>';
     $data .= '<phone>'.$row['phone'].'</phone>';
-    $data .= '<address>'.$row['address'].'</address>';
+    $data .= '<floor>'.$row['floor'].'</floor>';
+	$data .= '<street_number>'.$row['street_number'].'</street_number>';
+	$data .= '<route>'.$row['route'].'</route>';
+	$data .= '<locality>'.$row['locality'].'</locality>';
+	$data .= '<region>'.$row['region'].'</region>';
+	$data .= '<post_code>'.$row['post_code'].'</post_code>';
     $data .= '<dateAdded>'.$row['dateAdded'].'</dateAdded>';
     $data .= '</item>';
 }
