@@ -1,0 +1,19 @@
+<html>
+<head>
+	
+</head>
+<body>
+	<h1>Twin Cities Group Report</h1>
+	<h3>Group Members</h3>
+	<ul>
+		<li>George Squair - 15015248</li>
+		<li>Jake Patch</li>
+		<li>Kieran Foley</li>
+	</ul>
+	<hr>
+	<p>During the development of this project we have learnt a vast variety of skills. This included the use of a few different API's such as Google's mapping, photo and place API's, Twitter's Tweet search API, Open Weather and Flickr's API. Through learning how to use and apply these on our project it has reinforced our knowledge of JSON and XML as this is how the data would be returned from the requests made to the API's. We quite quickly got very used to interpretting and proccessing the data that was recieved. It was also in this proccess where we learnt how powerful AJAX was the create dynamic content after the page has been loaded, rather than just on the load of the page. This was an essential skill for us, as we wanted to try to maintain the website as a single page application.</p>
+	<p>Upon the initial design of the database, we hadn't factored in that we would need to cache certain data in order to help improve performance and reduce the number of API calls made to various resources. On one particular day one member of the group accidently reached the maximum limit for calls made to Google's place details API. After this happened we redesigned part of the database so that data pulled could be stored and directly pulled on subsequent requests as long as they were within the caching time frame, which varies for the different sets of data.</p>
+	<p>When accessing the database we decided to use PDO (PHP Data Objects). We found there were many advantages of using this over the older mysqli methods. The most important being the fact that it negates the need to escape any string's that could potentially open flaws for an SQL injection, the other main advantage being that it wouldn't matter what DBMS (Database management system) the application was using, making it platform independant. </p>
+	<p>From working collaborativly we quickly learned how powerful version control software is when working on the same code simultaneously. We had created a repository on Git Hub to be able to track, commit and update the files with ease from both in and out the university. As the project contains many different files, without this use of Git keeping everyones files tracked and up to date would've been very hard to achieve and maintain continuity throughout.</p>
+</body>
+</html>
