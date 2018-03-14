@@ -30,11 +30,11 @@
 	$path = $xml->createElement("path", "https://api.twitter.com/1.1/search/tweets.json?q=[cityName]&#038geocode=[longitude],[latitude],[area]km&#038count=[numberOfTweets]&#038tweet_mode=extended");
 	$path = $twitter->appendChild($path);
 
-	//Flikr
-	$key = $xml->createElement("flikr","Jake's key here");
-	$key = $container->appendChild($key);
-	$path = $xml->createElement("path", "Jakes API path here");
-	$path = $twitter->appendChild($path);
+	//Flickr
+	$flickr = $xml->createElement("flickr","f4ee116742bf19b59d294611cb7b834b");
+	$flickr = $container->appendChild($flickr);
+	$path = $xml->createElement("path", "https://api.flickr.com/services/rest/?method=flickr.photos.search&#038api_key=[API Key]&#038lat=[Latitude]&#038lon=[Longitude]&#038format=json&#038jsoncallback=?");
+	$path = $flickr->appendChild($path);
 
 
 	$xml->FormatOutput = true;

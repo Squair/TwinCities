@@ -15,9 +15,9 @@
            
         .imageContainer {
             position: relative;
-            width: 20%;
+            width: 100%;
             cursor: pointer;
-            margin-left: 20%;
+            
         }
 
 
@@ -62,11 +62,10 @@
 	
    <body>
 	
-      <h3>Chicago Images</h3>
        
     <?php 
 
-        session_start();
+       session_start();
        
        if (isset($_SESSION['CACHED'])) {
            if (time() - $_SESSION['CACHED'] > 10) { //Every Day Make API Call 86400
@@ -85,7 +84,17 @@
        
        
         function makeApiCall() {
-            $query = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=f4ee116742bf19b59d294611cb7b834b&lat=41.8781&lon=87.6298&format=json&jsoncallback=?';
+			require("db_connection.php");
+			$city = $_GET['city'];
+			$sql = "SELECT * FROM city WHERE name='$city'";
+			$result = $connection->query($sql);
+			$row = $result->fetch(PDO::FETCH_ASSOC);
+			
+			$lat = $row['latitude'];
+			$lon = $row['longitude'];
+
+			
+            $query = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=f4ee116742bf19b59d294611cb7b834b&lat=" . $lon . "&lon=" . $lat . "&format=json&jsoncallback=?";
             
             $ch = curl_init(); // open curl session
 
@@ -103,7 +112,7 @@
             
             $arrayLength = sizeof($object['photos']['photo']);
             
-            require("db_connection.php");
+            
             
             $deleteRecords = $connection->prepare("DELETE FROM flickr");
             $deleteRecords->execute();

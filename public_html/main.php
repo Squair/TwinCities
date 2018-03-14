@@ -6,6 +6,7 @@
 <script src="../resources/js/sideBarControl.js"></script> <!-- Controlls the side bars scrolling out. -->
 
 <?php
+
 	date_default_timezone_set("GB"); //Set default timezone to UK, otherwise date() is hour ahead.
 	//displays side panels depending on which side the iframe is on.
     if ($_GET['id'] == "left"){
@@ -63,7 +64,7 @@
 		<div id="markerInfo"></div>
 		<!-- Pull tweets into below div -->
 		<div id="tweetBox" style="width: 100%; height: 80%; overflow:scroll"></div>
-        
+        <div id="photoBox" style="width: 100%; height: 80%; overflow:scroll"></div>
 
 		
 		<img id="contentImg">

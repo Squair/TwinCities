@@ -46,6 +46,23 @@ function processResponse(){
 		}
 }	
 
+function makeFlickrRequestObject(resource){
+	http.open('get', resource);
+	
+	http.onreadystatechange = weatherResponse;
+	http.send(null);	
+}
+	
+function flickrResponse(){
+		http.onreadystatechange = function(){
+			if (http.readyState = 4){
+				var response = http.responseText;
+				document.getElementById("photoBox").innerHTML = response;
+
+			}
+		}
+}
+	
 function makeWeatherRequestObject(resource){
 	http.open('get', resource);
 	
@@ -107,7 +124,9 @@ function weatherResponse(){
 						$("#map").fadeIn(500);
 						break;
 					case "Photos":
-						$("#contentInfo").text("Pull all photos with photo api here.");
+						$("#contentInfo").text("Here are photos of <?php echo $_GET['city'];?>");
+						makeFlickrRequestObject('../resources/templates/flickr.php?city=<?php echo $_GET['city']; ?>');
+						flickrResponse();
 						break;
 					case "Weather":
 						$("#contentInfo").text("In <?php echo $_GET['city'];?>");
@@ -134,6 +153,7 @@ function weatherResponse(){
 					case "XML":
 						window.open("../resources/templates/DB-xml.php");
 						window.open("../resources/templates/API-xml.php");
+						
 					case "Night life":
 						
 						initPlacesMap("night_club");
