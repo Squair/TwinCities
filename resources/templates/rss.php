@@ -1,8 +1,9 @@
 <?php
 
-require_once("db_connection.php");
-
- 
+function connect() {
+    return new PDO('mysql:host=weeb03;dbname=fet15015248', 'fet15015248', 'George01823', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+}
+$pdo = connect();
 $sql = 'SELECT * FROM places ORDER BY name DESC';
 $query = $pdo->prepare($sql);
 $query->execute();
