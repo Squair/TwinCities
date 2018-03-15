@@ -39,6 +39,14 @@
 	$path = $flickr->appendChild($path);
 
 
+	//Open weather
+	$weather = $xml->createElement("openWeather");
+	$weather = $container->appendChild($weather);
+	$key = $xml->createElement("key", "05768b694a7d28135a53d7463726dce6");
+	$key = $weather->appendChild($key);
+	$path = $xml->createElement("path", "http://api.openweathermap.org/data/2.5/forecast?id=[cityId]&#038mode=json&#038appid=[API KEY]");
+	$path = $weather->appendChild($path);
+
 	$xml->FormatOutput = true;
 	$string_value = $xml->saveXML();
 
