@@ -221,7 +221,7 @@ if (isset($phpData['result']['types'])){
 if (isset($phpData['result']['photos'])){ //Check place had photos associated.
 	foreach($phpData['result']['photos'] as $photo){
 		//Commented just to save API calls for the moment.
-		//echo "<img src=https://maps.googleapis.com/maps/api/place/photo?maxwidth=" . $photo['width'] . "&photoreference=" . $photo['photo_reference'] . "&key=AIzaSyBhHPFmJmx7Irz6VwjeZYqjjZjS0tfo3mc style='height: 175px; width: 175px;'/>";
+		echo "<img src=https://maps.googleapis.com/maps/api/place/photo?maxwidth=" . $photo['width'] . "&photoreference=" . $photo['photo_reference'] . "&key=AIzaSyBhHPFmJmx7Irz6VwjeZYqjjZjS0tfo3mc style='height: 175px; width: 175px;'/>";
 	}
 }
 
