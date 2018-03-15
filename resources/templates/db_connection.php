@@ -1,12 +1,11 @@
-
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
+//$servername = "localhost";
+//$username = "root";
+//$password = "";
 
-//$servername = "weeb03";
-//$username = "fet15015248";
-//$password = "George01823";
+$servername = "weeb03";
+$username = "fet15015248";
+$password = "George01823";
 
 $db = "fet15015248";
 // Create connection

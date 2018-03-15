@@ -49,9 +49,10 @@
 
 	$xml->FormatOutput = true;
 	$string_value = $xml->saveXML();
-
+	header('Content-type: application/xml');
+	print_r($string_value);
 	$xml->save("../xml/API.xml");
 	
 	$file = "../xml/API.xml";
-	header('Location: ../xml/API.xml');	
+	//header('Location: ../xml/API.xml');	
 ?>

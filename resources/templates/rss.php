@@ -1,10 +1,7 @@
 <?php
 
-function connect() {
-    return new PDO('mysql:host=localhost;dbname=fet15015248', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
-}
- 
-$pdo = connect();
+require_once("db_connection.php");
+
  
 $sql = 'SELECT * FROM places ORDER BY name DESC';
 $query = $pdo->prepare($sql);

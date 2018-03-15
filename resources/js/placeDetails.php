@@ -1,5 +1,5 @@
 <?php
-require_once("../templates/db_connection.php"); 
+require("../templates/db_connection.php"); 
 $placeId = $_GET['placeId'];
 $cityId = $_GET['cityId'];
 
@@ -40,8 +40,8 @@ if (isset($connection)){ //Check database for existing place ID that has been ad
 		$result = $connection->query($sql);
 		
 		foreach ($result as $row){
-			echo "<img src=../resources/place_photos/". $row['idPhoto'] . ".jpg style='height: 175px; width: 175px;'/>";
-			//echo "<img src=https://maps.googleapis.com/maps/api/place/photo?maxwidth=" . $row['maxWidth'] . "&photoreference=" . $row['idPhoto'] . "&key=AIzaSyBhHPFmJmx7Irz6VwjeZYqjjZjS0tfo3mc style='height: 175px; width: 175px;'/>";
+			//echo "<img src=../place_photos/". $row['idPhoto'] . ".jpg style='height: 175px; width: 175px;'/>";
+			echo "<img src=https://maps.googleapis.com/maps/api/place/photo?maxwidth=" . $row['maxWidth'] . "&photoreference=" . $row['idPhoto'] . "&key=AIzaSyBhHPFmJmx7Irz6VwjeZYqjjZjS0tfo3mc style='height: 175px; width: 175px;'/>";
 		}
 		//Pull reviews relating to place ID.
 		$sql = "SELECT * FROM place_reviews WHERE idPlace='$placeId' ORDER BY timeAgo DESC";
@@ -61,7 +61,7 @@ if (isset($connection)){ //Check database for existing place ID that has been ad
 
 		//Use this for local development (XAMPP freaks out over ssl).
 		//Get details about place with place ID.
-		$json = file_get_contents("https://maps.googleapis.com/maps/api/place/details/json?placeid=" . $placeId . "&key=AIzaSyA4KZhYCdAR-r1lBaoTVB7cvXh3uiMLPyA", false, stream_context_create($arrContextOptions));
+		$json = file_get_contents("https://maps.googleapis.com/maps/api/place/details/json?placeid=" . $placeId . "&key=AIzaSyBhHPFmJmx7Irz6VwjeZYqjjZjS0tfo3mc", false, stream_context_create($arrContextOptions));
 		
 		$phpData = json_decode($json, true);
 
@@ -139,6 +139,9 @@ if (isset($connection)){ //Check database for existing place ID that has been ad
 		}
 		//Add all photo reference's for each place
 		if (isset($phpData['result']['photos'])){
+				//Remove any previous entrys from db.
+				$sql = "DELETE FROM place_photos WHERE idPlace='$placeId'";
+				$connection->query($sql);
 			foreach($phpData['result']['photos'] as $photo){
 				$photoRef = $photo['photo_reference'];
 				$maxWidth = $photo['width'];
@@ -149,11 +152,9 @@ if (isset($connection)){ //Check database for existing place ID that has been ad
 				if ($row){
 					//Remove any photos previously save for that place.
 					$path = "../place_photos/" . $row['idPhoto'] . ".jpg";
-					unlink($path);
+					//unlink($path);
 				}
-				//Remove any previous entrys from db.
-					$sql = "DELETE FROM place_photos WHERE idPlace='$placeId'";
-					$connection->query($sql);
+
 				//Add new photos.
 					$sth = $connection->prepare("INSERT INTO place_photos (idPhoto, idPlace, maxWidth) VALUES (?, ?, ?)");
 					$sth->execute(array($photoRef, $placeId, $maxWidth));
@@ -161,7 +162,8 @@ if (isset($connection)){ //Check database for existing place ID that has been ad
 					$key = "AIzaSyBhHPFmJmx7Irz6VwjeZYqjjZjS0tfo3mc";
 					//Save photo with photo reference as its name to server.
 					file_put_contents("../place_photos/" . $photo['photo_reference'] . ".jpg", file_get_contents("https://maps.googleapis.com/maps/api/place/photo?maxwidth=" . $photo['width'] . "&photoreference=" . $photo['photo_reference'] . "&key=" . $key, false, stream_context_create($arrContextOptions)));
-				
+					//file_put_contents("../place_photos/" . $photo['photo_reference'] . ".jpg", file_get_contents("https://maps.googleapis.com/maps/api/place/photo?maxwidth=" . $photo['width'] . "&photoreference=" . $photo['photo_reference'] . "&key=" . $key));
+					//file_put_contents("../place_photos/test.txt");
 			}
 		}
 		//Add place reviews for place

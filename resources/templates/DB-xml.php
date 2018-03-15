@@ -1,6 +1,7 @@
 <?php
-	require_once("db_connection.php"); 
-	$xml = new DomDocument("1.0","UTF-8");
+require_once("db_connection.php"); 
+$xml = new DomDocument("1.0","UTF-8");
+
 	
 
 	//Database
@@ -170,10 +171,13 @@
 
 	}
 
+	
 	$xml->FormatOutput = true;
 	$string_value = $xml->saveXML();
-
+	header('Content-type: application/xml');
+	print_r($string_value);
 	$xml->save("../xml/Database.xml");
-	header('Location: ../xml/Database.xml');
+	//$xml->save("../xml/Database.xml");
+	//header('Location: ../xml/Database.xml');
 ?>
 
