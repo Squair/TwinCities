@@ -1,0 +1,333 @@
+<!-- 
+/*********************************************************************************************************************************************
+* First written on 13/03/2018 by Kieran Foley.
+* Last modified on 15/03/2018 by Kieran Foley.
+*
+* Author: Kieran Foley
+*
+* File Name: XML_Schema.xsd
+* 
+* File Description:
+* The schema for the XML generated from our mySQL database.
+* The purpose of this file is to validate the XML. This includes limiting some tables, restricting the data types of elements and 
+* making sure they contain the correct name, for example, In this file we limit the amount of 'city' tables to two as this project is a mashup
+* of Birmingham and Chicago and will not include any other cities.
+* 
+*********************************************************************************************************************************************/
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="XML">
+        <xs:complexType>
+            <xs:sequence>
+                <!-- All the populated data in the database -->
+                <xs:element name="Data">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <!-- The city tables (Max occurrence of 2, Chicago and Birmingham) -->
+                            <xs:element name="city" maxOccurs="2" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="idCity" >
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:int">
+                                                    <!-- No ID can be 0 or less -->
+                                                    <xs:minInclusive value="0"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="name">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <!-- Min value = Chicago -->
+                                                    <xs:minLength value="7"/>
+                                                    <!-- Min value = Birmingham -->
+                                                    <xs:maxLength value="10"/>
+                                                    <!-- Defines a list of acceptable values -->
+                                                    <xs:enumeration value="Chicago"/>
+                                                    <xs:enumeration value="Birmingham"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="area">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:float">
+                                                    <!-- Area has to be more than 0 squared km's -->
+                                                    <xs:minInclusive value="0"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="latitude"/>
+                                        <xs:element type="xs:float" name="longitude"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <!-- Anyone can add as many comments as they like, therefore there is no maximum occurrences.
+                            Equally, no comments could be added, so there is no minimum either -->
+                            <xs:element name="comment" maxOccurs="unbounded" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="idComment">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:int">
+                                                    <!-- No ID can be 0 or less -->
+                                                    <xs:minInclusive value="0"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="idCity">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:int">
+                                                    <!-- No ID can be 0 or less -->
+                                                    <xs:minInclusive value="0"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="comment">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <!-- No comment can have 0 characters, Maximum of 3000 characters -->
+                                                    <xs:minLength value="1"/>
+                                                    <xs:maxLength value="3000"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <!-- Owner of the comment -->
+                                        <xs:element name="name">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <!-- No user can have 0 characters, Maximum of 99 characters -->
+                                                    <xs:minLength value="1"/>
+                                                    <xs:maxLength value="99"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <!-- Type = string as date and time are combined in the database
+                                        This could be resolved by dividing them seperately -->
+                                        <xs:element name="time">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <!-- No user can have 0 characters, Maximum of 99 characters -->
+                                                    <xs:length value="19"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="place" maxOccurs="unbounded" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="idPlace">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <!-- all ID's must be longer than 1 char -->
+                                                    <xs:minLength value="1"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="idCity">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:int">
+                                                    <!-- All ID's must be at more than 1 -->
+                                                    <xs:minExclusive value="0"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="name">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <!-- No users name can have 0 characters -->
+                                                    <xs:minLength value="1"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="url">
+                                            <!-- Can't add url pattern as there could not be a url -->
+                                        </xs:element>
+                                        <xs:element name="floor">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:minLength value="0"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="street_number">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:minLength value="0"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="route">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:minLength value="0"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="locality">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:minLength value="0"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="region">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:minLength value="0"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="post_code">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:minLength value="0"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="phone">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:minLength value="0"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element  name="dateAdded">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:minLength value="0"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="photo" maxOccurs="unbounded" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="idPhoto">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:minLength value="0"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="idPlace">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:minLength value="0"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="maxWidth">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:int">
+                                                    <xs:minExclusive value="0"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="review" maxOccurs="unbounded" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="idReview">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:int">
+                                                    <xs:minExclusive value="0"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="idPlace">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:minLength value="0"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="authorh">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:minLength value="0"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="rating">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:int">
+                                                    <!-- The minimum rating you can give is 1, maximum is 5--> 
+                                                    <xs:minInclusive value="1"/>
+                                                    <xs:maxInclusive value="5"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="text">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:minLength value="0"/>
+                                                    <xs:maxLength value="3000"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="timeAgo">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="place_type" maxOccurs="unbounded" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="idType">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:int">
+                                                    <xs:minInclusive value="0"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="idPlace">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:minLength value="0"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <!-- The type of place e.g spa, church, restaurant. These are pulled of google maps
+                            and could therefore be more types, this means there can be no maximum occurrences.-->
+                            <xs:element name="type" maxOccurs="unbounded" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="idType">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:int">
+                                                    <!-- All ID's have to be greater than 0 -->
+                                                    <xs:minExclusive value="0"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="name">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <!-- Must include a name value -->
+                                                    <xs:minLength value="0"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
