@@ -59,32 +59,38 @@
        
        //Create a PHP Session
        session_start();
+    
+       
+        require("db_connection.php"); //Establish DB Connection
+        
+        $city = $_GET['city']; //Get the City Name
+
+        /* Get the Cities Latitude & Longitude */
+        $sql = "SELECT * FROM city WHERE name='$city'"; 
+        $result = $connection->query($sql);
+        $row = $result->fetch(PDO::FETCH_ASSOC);
        
        if (isset($_SESSION[$_GET['city']])) { //If a session for that city exists
            if (time() - $_SESSION[$_GET['city']] > 10) { //Every Day Make API Call 86400 (10 seconds for presentation purposes)
                 print "API CALL";
-                makeApiCall(); //Calls The API
+                makeApiCall($row); //Calls The API
                 $_SESSION[$_GET['city']] = time(); // update last activity time stamp
            } else {
                 print "DB CALL";
-                getCachedImages(); //Grabs images from Database
+                getCachedImages($row['idCity']); //Grabs images from Database
            }
        } else 
             $_SESSION[$_GET['city']] = time(); // Set Initial Cached Time Stamp
        
         /* Grabs & Parases Images From API URL */
-        function makeApiCall() {
-			require("db_connection.php"); //Establish DB Connection
+        function makeApiCall($row) {
+            require("db_connection.php");
             
-			$city = $_GET['city']; //Get the City Name
-            
-            /* Get the Cities Latitude & Longitude */
-			$sql = "SELECT * FROM city WHERE name='$city'"; 
-			$result = $connection->query($sql);
-			$row = $result->fetch(PDO::FETCH_ASSOC);
-			
-			$lat = $row['latitude'];
+            $lat = $row['latitude'];
 			$lon = $row['longitude'];
+            
+            $cityId = $row['idCity'];
+            
 			/* API URL For Latitude & Longitude */
             $query = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=f4ee116742bf19b59d294611cb7b834b&lat=" . $lon . "&lon=" . $lat . "&format=json&jsoncallback=?";
             
@@ -105,7 +111,7 @@
             
             
             //Delete the past cached images based on the city
-            $deleteRecords = $connection->prepare("DELETE FROM flickr WHERE CITY_NAME='" . $_GET['city'] . "'"); 
+            $deleteRecords = $connection->prepare("DELETE FROM flickr WHERE CITY_ID='" . $cityId . "'"); 
             $deleteRecords->execute();
             
             print "<div class='images'>"; 
@@ -116,7 +122,7 @@
                 //The Image URL Parased
                 $image = "https://farm" . $element['farm'] . ".staticflickr.com/" . $element['server'] . "/" . $element['id'] . "_" . $element['secret'] . "_b.jpg";
                 //Cache the images to the DB
-                cacheImages($image, $element['title']);
+                cacheImages($image, $element['title'], $cityId);
                 //Display the images to screen
                 displayImage($image, $element['title']);
             }
@@ -124,19 +130,19 @@
         }
        
        /* Caches the Image URL's + Data To The Database */
-       function cacheImages($imgUrl, $caption) {
+       function cacheImages($imgUrl, $caption, $cityId) {
             require("db_connection.php"); //Create DB Connection
             if (isset($connection)) { //Make sure the connection is established
-                $query = $connection->prepare("INSERT INTO flickr (IMAGE_URL, CAPTION, TIME_CACHED, CITY_NAME) VALUES (?, ?, ?, ?)");
-                $query->execute(array($imgUrl, $caption, date("Y-m-d H:i:s"), $_GET['city'])); //Insert Image Data into DB
+                $query = $connection->prepare("INSERT INTO flickr (IMAGE_URL, CAPTION, TIME_CACHED, CITY_ID) VALUES (?, ?, ?, ?)");
+                $query->execute(array($imgUrl, $caption, date("Y-m-d H:i:s"), $cityId)); //Insert Image Data into DB
             }
        }
        
        /* Grabs all the cached images from the database & displays to screen */
-       function getCachedImages() {
-            require_once("db_connection.php");
+       function getCachedImages($cityId) {
+            require("db_connection.php");
            	if (isset($connection)) {
-                $getImages = $connection->prepare("SELECT * FROM flickr WHERE CITY_NAME='".$_GET['city']."'");
+                $getImages = $connection->prepare("SELECT * FROM flickr WHERE CITY_ID='".$cityId."'");
                 $getImages->execute();
                 $images = $getImages->fetchAll();
 				
