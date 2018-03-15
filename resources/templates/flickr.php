@@ -88,11 +88,13 @@
 			/* API URL For Latitude & Longitude */
             $query = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=f4ee116742bf19b59d294611cb7b834b&lat=" . $lon . "&lon=" . $lat . "&format=json&jsoncallback=?";
             
+            /* CURL Was Integrated through the help of http://php.net/manual/en/curl.examples.php */
             $ch = curl_init(); // open curl session
             curl_setopt($ch, CURLOPT_URL, $query); //Get Data from API URL
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //Returns Data as a string
             $data = curl_exec($ch); // Execute the curl session
             curl_close($ch); // Closes the curl session
+            
             $data = str_replace( 'jsonFlickrApi(', '', $data ); //Remove Text 
             $data = substr( $data, 0, strlen( $data ) - 1 ); //strip out last paren
             $object = json_decode($data, true); //Decode JSON (Convert To An Array)
